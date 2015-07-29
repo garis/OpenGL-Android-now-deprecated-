@@ -1,0 +1,5 @@
+<SurfaceView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/surfaceView1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+<!-- From: file:/home/riccardo/AndroidStudioProjects/GraphicsEngine/app/src/main/res/layout/activity.xml -->

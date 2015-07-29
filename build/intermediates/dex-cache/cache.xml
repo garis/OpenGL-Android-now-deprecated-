@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2">
+
+    <item
+        jar="/home/riccardo/AndroidStudioProjects/GraphicsEngine/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jumboMode="false" revision="21.1.2" sha1="8694693636ab36910c8100ce527c258ff3ebece0">
+        <dex
+            dex="/home/riccardo/AndroidStudioProjects/GraphicsEngine/app/build/intermediates/pre-dexed/debug/classes-466531fd150010e143bec882af9a2a4b6284774f.jar" />
+    </item>
+    <item
+        jar="/home/riccardo/AndroidStudioProjects/GraphicsEngine/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        jumboMode="false" revision="21.1.2" sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d">
+        <dex
+            dex="/home/riccardo/AndroidStudioProjects/GraphicsEngine/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-07e219ad7119682647b088f20e0cce3e18d92b2a.jar" />
+    </item>
+    <item
+        jar="/home/riccardo/AndroidStudioProjects/GraphicsEngine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/classes.jar"
+        jumboMode="false" revision="21.1.2" sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef">
+        <dex
+            dex="/home/riccardo/AndroidStudioProjects/GraphicsEngine/app/build/intermediates/pre-dexed/debug/classes-07175e1e747781b820148b876016dc98a638783a.jar" />
+    </item>
+    <item
+        jar="/home/riccardo/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jumboMode="false" revision="21.1.2" sha1="9d9013e9ff35fc3756411e62873c363c70c638fa">
+        <dex
+            dex="/home/riccardo/AndroidStudioProjects/GraphicsEngine/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-d6625747e961d727676e4dcc2bd2de2f15a1b753.jar" />
+    </item>
+
+</items>

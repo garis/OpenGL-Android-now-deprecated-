@@ -1,0 +1,121 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.App.KillTheKiller">
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="0"
+        android:title="reset"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="1"
+        android:title="+ contr."
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="2"
+        android:title="- contr."
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="3"
+        android:title="velocity"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="4"
+        android:title="velocity x"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="5"
+        android:title="velocity y"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="6"
+        android:title="curl"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="7"
+        android:title="density"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="8"
+        android:title="draw line"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="9"
+        android:title="draw circle"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="10"
+        android:title="draw drop"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="11"
+        android:title="draw bell mouth"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="12"
+        android:title="draw inv. bell mouth"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="13"
+        android:title="reset barrier"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="14"
+        android:title="stop/restart"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="15"
+        android:title="E/D tracers"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="16"
+        android:title="+ velocity"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="17"
+        android:title="- velocity"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@id/action_settings"
+        android:orderInCategory="18"
+        android:title="inv. velocity"
+        app:showAsAction="never" />
+</menu>
+<!-- From: file:/home/riccardo/AndroidStudioProjects/GraphicsEngine/app/src/main/res/menu/kill_the_killer.xml -->
