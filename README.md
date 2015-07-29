@@ -9,5 +9,5 @@ This apk is configured to run Lattice-Boltzamann 2D fluids simulations using ope
 
 In the code there is also an another test class that show a simple scene with some rotating object extracted from a 3D .obj files and some sample text.
 
-Thanks to www.physics.weber.edu/schroeder/fluids for share a simple java implementations of the simulation.
+Thanks to www.physics.weber.edu/schroeder/fluids for share a simple java implementation of the simulation.
 
