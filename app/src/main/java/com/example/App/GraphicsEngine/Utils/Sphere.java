@@ -15,19 +15,19 @@ public class Sphere {
         radius = Radius;
     }
 
-    public void SetPosition(Point3f point) {
-        center = point;
-    }
-
-    public Point3f GetPosition() {
+    public Point3f getPosition() {
         return center;
     }
 
-    public void SetRadius(float Radius) {
-        radius = Radius;
+    public void setPosition(Point3f point) {
+        center = point;
     }
 
-    public float GetRadius() {
+    public float getRadius() {
         return radius;
+    }
+
+    public void setRadius(float Radius) {
+        radius = Radius;
     }
 }

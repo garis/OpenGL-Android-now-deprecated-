@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.example.App.GraphicsEngine.Engine;
 
 import android.annotation.TargetApi;
@@ -35,16 +21,6 @@ import java.util.List;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-
-/**
- * Provides drawing instructions for a GLSurfaceView object. This class
- * must override the OpenGL ES drawing lifecycle methods:
- * <ul>
- * <li>{@link android.opengl.GLSurfaceView.Renderer#onSurfaceCreated}</li>
- * <li>{@link android.opengl.GLSurfaceView.Renderer#onDrawFrame}</li>
- * <li>{@link android.opengl.GLSurfaceView.Renderer#onSurfaceChanged}</li>
- * </ul>
- */
 public class EngineGLRenderer implements EngineGLRendererInterface {
     private static final String TAG = "MyGLRenderer";
     private final String vertexShaderCode =
@@ -142,7 +118,7 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
         }
     }
 
-    public void Initialize(Context androidContext) {
+    public void initialize(Context androidContext) {
         begining = System.currentTimeMillis();
         isUpdated = false;
         context = androidContext;
@@ -160,12 +136,8 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
         chracterList.LoadFNT_File(context, "font");
     }
 
-    public int GetTextTextureGL_INDEX() {
+    public int getTextTextureGL_INDEX() {
         return textures[0];
-    }
-
-    protected void SetWaitTime(int time) {
-        wait = time;
     }
 
     @Override
@@ -188,7 +160,7 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
     }
 
     //[0]=vertex;[1]=fragment;[2]=program
-    private void CompileShader() {
+    private void compileShader() {
         if (GL_INDEX[0] == -1) {
             // prepare shaders and OpenGL program
             GL_INDEX[0] = EngineGLRenderer.loadShader(
@@ -209,20 +181,16 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
         }
     }
 
-    public void LoadTextTexture(int fontID) {
+    public void loadTextTexture(int fontID) {
         if (textures[0] == 0) {
             //LOAD FONT TEXTURE
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), fontID);
-
-            //ByteBuffer pixelBuffer = ByteBuffer.allocateDirect(bitmap.getWidth()*bitmap.getHeight()*4);
-            //bitmap.copyPixelsToBuffer(pixelBuffer);
 
             //switches on the ability to use two-dimensional images
             GLES20.glEnable(GLES20.GL_TEXTURE_2D);
             //ability to combine images in interesting ways by specifying how the source and destination will be combined
             GLES20.glEnable(GLES20.GL_BLEND);
             //defines how the source image and the destination image or surface are combined
-            //GLES20.glBlendFunc(GLES20.GL_ONE, GLES20.GL_SRC_COLOR);
             GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
             // generate one texture pointer
             GLES20.glGenTextures(1, textures, 0);
@@ -241,30 +209,29 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
         return isReadyToStart;
     }
 
-    public void LoadItems() {
+    public void loadItems() {
         isReadyToStart = true;
-        //Start();
     }
 
-    public void LoadItems(EngineComponent.EngineComponentInterface obj, boolean orderByRenderDepth, String vertexShader, String fragmentShader, boolean hasPrivateShaderCode) {
+    public void loadItems(EngineComponent.EngineComponentInterface obj, boolean orderByRenderDepth, String vertexShader, String fragmentShader, boolean hasPrivateShaderCode) {
         if (!hasPrivateShaderCode) {
             if ((vertexShader == null) && (fragmentShader == null)) {
-                CompileShader();
-                obj.SetGL_POINTER(GL_INDEX[2]);
+                compileShader();
+                obj.setGL_POINTER(GL_INDEX[2]);
             } else {
                 if ((vertexShader != null) && (fragmentShader == null)) {
-                    obj.SetGL_POINTER(vertexShader, fragmentShaderCode);
+                    obj.setGL_POINTER(vertexShader, fragmentShaderCode);
                 } else {
-                    obj.SetGL_POINTER(vertexShader, fragmentShader);
+                    obj.setGL_POINTER(vertexShader, fragmentShader);
                 }
             }
         }
 
-        if (obj.GetRenderDepth() < 0) {
+        if (obj.getRenderDepth() < 0) {
             if (_images.size() > 0)
-                obj.SetRenderDepth(_images.get(_images.size() - 1).GetRenderDepth() - 0.1f);
+                obj.setRenderDepth(_images.get(_images.size() - 1).getRenderDepth() - 0.1f);
             else
-                obj.SetRenderDepth(0.5f);
+                obj.setRenderDepth(0.5f);
         }
 
         boolean result = false;
@@ -272,23 +239,27 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
         Iterator<EngineComponent.EngineComponentInterface> iterator = _images.iterator();
         while ((iterator.hasNext()) && (!result)) {
             EngineComponent.EngineComponentInterface im = iterator.next();
-            if ((im.GetTextureID()[0] == obj.GetTextureID()[0]) && (im.GetTextureID()[0] != 0)) {
-                obj.SetTextureGL_ID(im.GetTextureGL_ID()[0]);
+            if ((im.getTextureID()[0] == obj.getTextureID()[0]) && (im.getTextureID()[0] != 0)) {
+                obj.setTextureGL_ID(im.getTextureGL_ID()[0]);
                 result = true;
             }
         }
 
-        if ((!result) && (obj.GetTextureID()[0] != 0)) {
-            obj.LoadGLTexture(context, obj.GetTextureID()[0], true);
+        if ((!result) && (obj.getTextureID()[0] != 0)) {
+            obj.loadGLTexture(context, obj.getTextureID()[0], true);
         }
 
         _images.add(obj);
         if (orderByRenderDepth)
-            OrderByRenderDepth();
+            orderByRenderDepth();
     }
 
     public long getWaitTime() {
         return wait;
+    }
+
+    protected void setWaitTime(int time) {
+        wait = time;
     }
 
     public boolean isGameOn() {
@@ -299,13 +270,13 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
         GameOn = flag;
     }
 
-    private void OrderByRenderDepth() {
+    private void orderByRenderDepth() {
         EngineComponent.EngineComponentInterface[] temp = new EngineComponent.EngineComponentInterface[_images.size()];
         _images.toArray(temp);
 
         for (int i = 0; i < temp.length - 1; i++) {
             for (int j = i + 1; j < temp.length; j++) {
-                if (temp[i].GetRenderDepth() < temp[j].GetRenderDepth()) {
+                if (temp[i].getRenderDepth() < temp[j].getRenderDepth()) {
                     EngineComponent.EngineComponentInterface grCmp = temp[i];
                     temp[i] = temp[j];
                     temp[j] = grCmp;
@@ -314,44 +285,24 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
         }
         float max = 0;
         for (int i = 0; i < temp.length; i++) {
-            if (max < temp[i].GetRenderDepth()) {
-                max = temp[i].GetRenderDepth();
+            if (max < temp[i].getRenderDepth()) {
+                max = temp[i].getRenderDepth();
             }
         }
         _images.clear();
         for (int i = 0; i < temp.length; i++) {
-            temp[i].SetRenderDepth(temp[i].GetRenderDepth() / max);
+            temp[i].setRenderDepth(temp[i].getRenderDepth() / max);
             _images.add(temp[i]);
         }
     }
 
-    /*private void Cicle() {
-        while (GameOn) {
-            startTime = System.currentTimeMillis();
-            _totalTime=startTime-begining;
-            Update();
-
-            endTime = System.currentTimeMillis();
-            _dt = (endTime - startTime);
-
-            if (_dt < wait) {
-                try {
-                    thread.sleep(wait - _dt);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }*/
-
-    public void ClearItems() {
+    public void clearItems() {
         _images.clear();
     }
 
     @Override
     public void onDrawFrame(GL10 unused) {
-        // if(thread!=null)
-        Draw();
+        draw();
     }
 
     public float getElaspedTime() {
@@ -362,22 +313,22 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
         _totalTime = time;
     }
 
-    public void Update() {
+    public void update() {
         Iterator<EngineComponent.EngineComponentInterface> iterator = _images.iterator();
         while (iterator.hasNext()) {
             EngineComponent.EngineComponentInterface im = iterator.next();
-            im.Update(_dt);
+            im.update(_dt);
         }
     }
 
-    private void Draw() {
+    private void draw() {
         // Draw background color
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         GLES20.glClearColor(0, 0, 0.8f, 0.5f);
 
         Iterator<EngineComponent.EngineComponentInterface> iterator = _images.iterator();
         while (iterator.hasNext()) {
-            iterator.next().Draw(_camera.GetViewMatrix(), _camera.GetProjectionMatrix(), time);
+            iterator.next().draw(_camera.getViewMatrix(), _camera.getProjectionMatrix(), time);
         }
     }
 
@@ -392,48 +343,37 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
         ZNear = 1;
         ZFar = 100;
 
-        _camera.SetProjectionMatrix(width, height, ZNear, ZFar);
+        _camera.setProjectionMatrix(width, height, ZNear, ZFar);
 
-        LoadItems();
+        loadItems();
     }
 
-    /*private void Start() {
-        thread = new Thread() {
-            @Override
-            public void run() {
-                Cicle();
-            }
-        };
-        GameOn = true;
-        thread.start();
-    }*/
-
-    protected float GetDT() {
+    protected float getDT() {
         return _dt;
     }
 
-    protected Vector3f GetLastTouch() {
+    protected Vector3f getLastTouch() {
         return _lastTouch;
     }
 
-    public void TouchDown(Vector3f screenCoords) {
-        _camera.Touch(screenCoords);
-        TestIntersection();
+    public void touchDown(Vector3f screenCoords) {
+        _camera.touch(screenCoords);
+        testIntersection();
 
         _lastTouch = screenCoords;
     }
 
     @Override
-    public void TouchMove(Vector3f screenCoords) {
+    public void touchMove(Vector3f screenCoords) {
 
     }
 
     @Override
-    public void TouchUp(Vector3f screenCoords) {
+    public void touchUp(Vector3f screenCoords) {
 
     }
 
-    private void TestIntersection() {
+    private void testIntersection() {
         Iterator<EngineComponent.EngineComponentInterface> iterator = _images.iterator();
 
         selectedObjects.clear();
@@ -441,7 +381,7 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
         //check for some selected object
         while (iterator.hasNext()) {
             EngineComponent.EngineComponentInterface im = iterator.next();
-            if (im.IsIntersectingRay(_camera.GetRay())) {
+            if (im.isIntersectingRay(_camera.getRay())) {
                 selectedObjects.add(im);
             }
         }
@@ -449,7 +389,7 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
         //execute action for all the selected object
         iterator = selectedObjects.iterator();
         while (iterator.hasNext()) {
-            iterator.next().DoAction(false);
+            iterator.next().doAction(false);
         }
     }
 }

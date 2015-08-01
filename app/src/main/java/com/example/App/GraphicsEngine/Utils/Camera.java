@@ -42,61 +42,61 @@ public class Camera {
         ScreenHeight = 0;
     }
 
-    public float GetScreenWidth() {
+    public float getScreenWidth() {
         return ScreenWidth;
     }
 
-    public float GetScreenHeight() {
+    public float getScreenHeight() {
         return ScreenHeight;
     }
 
-    public void SetCameraLookAt(Vector3f lookAt) {
-        _cameraLAX = lookAt.X();
-        _cameraLAY = lookAt.Y();
-        _cameraLAZ = lookAt.Z();
-        SetViewMatrix();
+    public void setCameraLookAt(Vector3f lookAt) {
+        _cameraLAX = lookAt.x();
+        _cameraLAY = lookAt.y();
+        _cameraLAZ = lookAt.z();
+        setViewMatrix();
     }
 
-    public void SetCameraPosition(Vector3f position) {
-        _cameraX = position.X();
-        _cameraY = position.Y();
-        _cameraZ = position.Z();
-        SetViewMatrix();
-    }
-
-    public Vector3f GetCameraPosition() {
+    public Vector3f getCameraPosition() {
         return new Vector3f(_cameraX, _cameraY, _cameraZ);
     }
 
-    public void SetProjectionMatrix(float screenWidth, float screenHeight, float ZNear, float ZFar) {
+    public void setCameraPosition(Vector3f position) {
+        _cameraX = position.x();
+        _cameraY = position.y();
+        _cameraZ = position.z();
+        setViewMatrix();
+    }
+
+    public void setProjectionMatrix(float screenWidth, float screenHeight, float ZNear, float ZFar) {
         ScreenWidth = screenWidth;
         ScreenHeight = screenHeight;
         float ratio = ScreenWidth / ScreenHeight;
         Matrix.frustumM(ProjectionMatrix, 0, -ratio, ratio, -1, 1, ZNear, ZFar);
     }
 
-    private void SetViewMatrix() {
+    private void setViewMatrix() {
         Matrix.setLookAtM(ViewMatrix, 0, _cameraX, _cameraY, _cameraZ, _cameraLAX, _cameraLAY, _cameraLAZ, 0f, 1.0f, 0.0f);
         Matrix.multiplyMM(MVPMatrix, 0, ProjectionMatrix, 0, ViewMatrix, 0);
 
         Matrix.invertM(InvertedProjectionMatrix, 0, MVPMatrix, 0);
     }
 
-    public float[] GetVPMatrix() {
+    public float[] getVPMatrix() {
         return MVPMatrix;
     }
 
-    public float[] GetViewMatrix() {
+    public float[] getViewMatrix() {
         return ViewMatrix;
     }
 
-    public float[] GetProjectionMatrix() {
+    public float[] getProjectionMatrix() {
         return ProjectionMatrix;
     }
 
-    public void Touch(Vector3f screenCoords) {
-        float normalizedX = (screenCoords.X() / ScreenWidth) * 2 - 1;
-        float normalizedY = -((screenCoords.Y() / ScreenHeight) * 2 - 1);
+    public void touch(Vector3f screenCoords) {
+        float normalizedX = (screenCoords.x() / ScreenWidth) * 2 - 1;
+        float normalizedY = -((screenCoords.y() / ScreenHeight) * 2 - 1);
 
         // We'll convert these normalized device coordinates into world-space
         // coordinates. We'll pick a point on the near and far planes, and draw a
@@ -117,7 +117,7 @@ public class Camera {
         Point3f nearPointRay = new Point3f(nearPointWorld[0], nearPointWorld[1], nearPointWorld[2]);
         Point3f farPointRay = new Point3f(farPointWorld[0], farPointWorld[1], farPointWorld[2]);
 
-        Vector3f directinVector = new Vector3f().VectorBetween(nearPointRay, farPointRay);
+        Vector3f directinVector = new Vector3f().vectorBetween(nearPointRay, farPointRay);
 
         ray = new Ray3f(nearPointRay, directinVector);
     }
@@ -128,7 +128,7 @@ public class Camera {
         vector[2] /= vector[3];
     }
 
-    public Ray3f GetRay() {
+    public Ray3f getRay() {
         return ray;
     }
 }

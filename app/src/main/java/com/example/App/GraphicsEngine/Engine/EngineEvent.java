@@ -7,6 +7,6 @@ public class EngineEvent {
         im = obj;
     }
 
-    public void DoAction() {
+    public void doAction() {
     }
 }

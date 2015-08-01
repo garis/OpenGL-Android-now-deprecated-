@@ -35,7 +35,7 @@ public class OBJParser {
     public OBJParser() {
     }
 
-    public boolean LoadFromOBJ(Context context, String name) {
+    public boolean loadFromOBJ(Context context, String name) {
         BufferedReader br = null;
         String sCurrentLine = "";
         file = new ArrayList<String>();
@@ -66,7 +66,7 @@ public class OBJParser {
         return flag;
     }
 
-    private void CreateVertices() {
+    private void createVertices() {
         VList = new ArrayList<Point>();
         VTList = new ArrayList<Point>();
         F0List = new ArrayList<Integer>();
@@ -128,16 +128,16 @@ public class OBJParser {
         }
     }
 
-    public float[] GetVertices() {
-        CreateVertices();
+    public float[] getVertices() {
+        createVertices();
         return V;
     }
 
-    public float[] GetUVVertices() {
+    public float[] getUVVertices() {
         return VT;
     }
 
-    public short[] GetOrder() {
+    public short[] getOrder() {
         return F0;
     }
 

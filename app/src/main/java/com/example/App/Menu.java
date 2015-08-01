@@ -11,7 +11,7 @@ import javax.microedition.khronos.opengles.GL10;
 public class Menu extends EngineGLRenderer {
 
     public Menu() {
-        super.Initialize(context);
+        super.initialize(context);
     }
 
     @Override
@@ -22,38 +22,38 @@ public class Menu extends EngineGLRenderer {
     }
 
     public void Update() {
-        this._camera.SetCameraPosition(new Vector3f(0, 0, -5 + (float) Math.sin(getElaspedTime() * 0.4f)));
+        this._camera.setCameraPosition(new Vector3f(0, 0, -5 + (float) Math.sin(getElaspedTime() * 0.4f)));
 
-        super.Update();
+        super.update();
     }
 
     public void LoadItems() {
-        this._camera.SetCameraLookAt(new Vector3f(0, 0, 0));
-        this._camera.SetCameraPosition(new Vector3f(0, 0, -5));
+        this._camera.setCameraLookAt(new Vector3f(0, 0, 0));
+        this._camera.setCameraPosition(new Vector3f(0, 0, -5));
 
         EngineComponent3D currentObject = new EngineComponent3D();
-        currentObject.Move(new Vector3f(4.6f, 0, 0));
-        currentObject.LoadFromOBJ(context, "plane");
-        currentObject.SetColor(new float[]{1.0f, 1.0f, 1.0f, 1.0f});
-        super.LoadItems(currentObject, false, null, null, false);
+        currentObject.move(new Vector3f(4.6f, 0, 0));
+        currentObject.loadFromOBJ(context, "plane");
+        currentObject.setColor(new float[]{1.0f, 1.0f, 1.0f, 1.0f});
+        super.loadItems(currentObject, false, null, null, false);
 
         EngineEvent anA = new EngineEvent(currentObject) {
             @Override
-            public void DoAction() {
+            public void doAction() {
             }
         };
-        currentObject.LinkEvent(anA);
+        currentObject.linkEvent(anA);
 
         currentObject = new EngineComponent3D();
-        currentObject.Move(new Vector3f(-4.6f, 0, 0));
-        currentObject.LoadFromOBJ(context, "thirdstCube");
-        super.LoadItems(currentObject, false, null, null, false);
+        currentObject.move(new Vector3f(-4.6f, 0, 0));
+        currentObject.loadFromOBJ(context, "thirdstCube");
+        super.loadItems(currentObject, false, null, null, false);
 
         anA = new EngineEvent(currentObject) {
             @Override
-            public void DoAction() {
+            public void doAction() {
             }
         };
-        currentObject.LinkEvent(anA);
+        currentObject.linkEvent(anA);
     }
 }

@@ -26,11 +26,11 @@ public class ListCharacter {
     private FontCharacter SearchCharacter(int n, int min, int max) {
         while (max >= min) {
             int mid = min + (max - min / 2);
-            if (vectorChracterList[mid].GetID() == n)
+            if (vectorChracterList[mid].getID() == n)
                 return vectorChracterList[mid];
-            else if (vectorChracterList[mid].GetID() < n) {
+            else if (vectorChracterList[mid].getID() < n) {
                 min = min + 1;
-            } else if (vectorChracterList[mid].GetID() > n) {
+            } else if (vectorChracterList[mid].getID() > n) {
                 max = max - 1;
             }
         }
@@ -73,10 +73,10 @@ public class ListCharacter {
             for (int i = 0; i < line.length; i++) {
                 String[] segment = line[i].split("=");
                 if (segment[0].compareTo("scaleW") == 0) {
-                    textureDim.X(Float.parseFloat(segment[1]));
+                    textureDim.x(Float.parseFloat(segment[1]));
                 }
                 if (segment[0].compareTo("scaleH") == 0) {
-                    textureDim.Y(Float.parseFloat(segment[1]));
+                    textureDim.y(Float.parseFloat(segment[1]));
                 }
             }
         }
@@ -84,19 +84,19 @@ public class ListCharacter {
         float maxWidth = 0;
         while (iterator.hasNext()) {
             FontCharacter character = new FontCharacter();
-            if (character.DecodeFromString(iterator.next(), textureDim)) {
+            if (character.decodeFromString(iterator.next(), textureDim)) {
                 chracterList.add(character);
-                if (character.GetHeight() > maxHeight)
-                    maxHeight = character.GetHeight();
-                if (character.GetWidth() > maxWidth)
-                    maxWidth = character.GetWidth();
+                if (character.getHeight() > maxHeight)
+                    maxHeight = character.getHeight();
+                if (character.getWidth() > maxWidth)
+                    maxWidth = character.getWidth();
 
             }
         }
 
         Iterator<FontCharacter> normIterator = chracterList.iterator();
         while (normIterator.hasNext()) {
-            normIterator.next().NormalizeDimension(new Vector3f(maxWidth, maxHeight, 0));
+            normIterator.next().normalizeDimension(new Vector3f(maxWidth, maxHeight, 0));
         }
 
         vectorChracterList = new FontCharacter[chracterList.size()];

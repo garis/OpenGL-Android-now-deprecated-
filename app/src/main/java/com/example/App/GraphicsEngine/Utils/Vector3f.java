@@ -25,47 +25,47 @@ public class Vector3f {
         xyz[2] = array[2];
     }
 
-    public float[] Array() {
+    public float[] array() {
         return xyz.clone();
     }
 
-    public float Length() {
+    public float length() {
         return (float) (Math.sqrt(xyz[0] * xyz[0] + xyz[1] * xyz[1] + xyz[2] * xyz[2]));
     }
 
-    public Vector3f Add(Vector3f rhs) {
+    public Vector3f add(Vector3f rhs) {
         return new Vector3f(
                 xyz[0] + rhs.xyz[0],
                 xyz[1] + rhs.xyz[1],
                 xyz[2] + rhs.xyz[2]);
     }
 
-    public Vector3f Sub(Vector3f rhs) {
+    public Vector3f sub(Vector3f rhs) {
         return new Vector3f(
                 xyz[0] - rhs.xyz[0],
                 xyz[1] - rhs.xyz[1],
                 xyz[2] - rhs.xyz[2]);
     }
 
-    public Vector3f Neg() {
+    public Vector3f neg() {
         return new Vector3f(-xyz[0], -xyz[1], -xyz[2]);
     }
 
-    public Vector3f Mul(float c) {
+    public Vector3f mul(float c) {
         return new Vector3f(c * xyz[0], c * xyz[1], c * xyz[2]);
     }
 
-    public Vector3f Div(float c) {
+    public Vector3f div(float c) {
         return new Vector3f(xyz[0] / c, xyz[1] / c, xyz[2] / c);
     }
 
-    public float Dot(Vector3f rhs) {
+    public float dot(Vector3f rhs) {
         return xyz[0] * rhs.xyz[0] +
                 xyz[1] * rhs.xyz[1] +
                 xyz[2] * rhs.xyz[2];
     }
 
-    public Vector3f Cross(Vector3f rhs) {
+    public Vector3f cross(Vector3f rhs) {
         return new Vector3f(
                 xyz[1] * rhs.xyz[2] - xyz[2] * rhs.xyz[1],
                 xyz[0] * rhs.xyz[2] - xyz[2] * rhs.xyz[0],
@@ -73,7 +73,7 @@ public class Vector3f {
         );
     }
 
-    public boolean Equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj instanceof Vector3f) {
             Vector3f rhs = (Vector3f) obj;
 
@@ -86,35 +86,35 @@ public class Vector3f {
 
     }
 
-    public float Norm() {
-        return (float) Math.sqrt(this.Dot(this));
+    public float norm() {
+        return (float) Math.sqrt(this.dot(this));
     }
 
-    public Vector3f Normalize() {
-        return this.Div(Norm());
+    public Vector3f normalize() {
+        return this.div(norm());
     }
 
-    public void X(float value) {
+    public void x(float value) {
         xyz[0] = value;
     }
 
-    public void Y(float value) {
+    public void y(float value) {
         xyz[1] = value;
     }
 
-    public void Z(float value) {
+    public void z(float value) {
         xyz[2] = value;
     }
 
-    public float X() {
+    public float x() {
         return xyz[0];
     }
 
-    public float Y() {
+    public float y() {
         return xyz[1];
     }
 
-    public float Z() {
+    public float z() {
         return xyz[2];
     }
 
@@ -122,7 +122,7 @@ public class Vector3f {
         return "( " + xyz[0] + " " + xyz[1] + " " + xyz[2] + " )";
     }
 
-    public Vector3f VectorBetween(Point3f from, Point3f to) {
-        return new Vector3f(to.GetX() - from.GetX(), to.GetY() - from.GetY(), to.GetZ() - from.GetZ());
+    public Vector3f vectorBetween(Point3f from, Point3f to) {
+        return new Vector3f(to.getX() - from.getX(), to.getY() - from.getY(), to.getZ() - from.getZ());
     }
 }

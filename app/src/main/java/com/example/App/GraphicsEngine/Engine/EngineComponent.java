@@ -112,18 +112,18 @@ public class EngineComponent {
         drawListBufferCapacity = drawListBuffer.capacity();
 
         boundingSphere = new BoundingSphere();
-        UpdateBoundsSphere();
+        updateBoundsSphere();
 
-        UpdatePointerVariable();
+        updatePointerVariable();
 
     }
 
-    public void SetGL_POINTER(int program) {
+    public void setGL_POINTER(int program) {
         mProgram = program;
-        UpdatePointerVariable();
+        updatePointerVariable();
     }
 
-    public void SetGL_POINTER(String vertexShaderCode, String fragmentShaderCode) {
+    public void setGL_POINTER(String vertexShaderCode, String fragmentShaderCode) {
         // prepare shaders and OpenGL program
         int vertexShader = EngineGLRenderer.loadShader(
                 GLES20.GL_VERTEX_SHADER,
@@ -141,22 +141,22 @@ public class EngineComponent {
 
         GLES20.glLinkProgram(mProgram);                  // create OpenGL program executables
 
-        UpdatePointerVariable();
+        updatePointerVariable();
     }
 
-    protected void UpdateBoundsSphere() {
+    protected void updateBoundsSphere() {
         boundingSphere = new BoundingSphere(new Point3f(_x, _y, _z), _scaleX / 2);
     }
 
-    public int[] GetTextureID() {
+    public int[] getTextureID() {
         return textureID;
     }
 
-    public int[] GetTextureGL_ID() {
+    public int[] getTextureGL_ID() {
         return textures;
     }
 
-    public void SetTextureGL_ID(int id) {
+    public void setTextureGL_ID(int id) {
         texturized = true;
         textures[0] = id;
         ByteBuffer bb = ByteBuffer.allocateDirect(uvCoords.length * 4);
@@ -166,11 +166,11 @@ public class EngineComponent {
         uvBuffer.position(0);
     }
 
-    public boolean GetCheckForReuse() {
+    public boolean getCheckForReuse() {
         return checkForReuse;
     }
 
-    public void LoadGLTexture(Context context, int id, boolean loadNowOrCheckForReuse) {
+    public void loadGLTexture(Context context, int id, boolean loadNowOrCheckForReuse) {
         textureID[0] = id;
         checkForReuse = !loadNowOrCheckForReuse;
 
@@ -223,7 +223,7 @@ public class EngineComponent {
         }
     }
 
-    protected void UpdateGeometryAndUVs(float[] SquareCoords, float[] UVCoords, short[] DrawOrder) {
+    protected void updateGeometryAndUVs(float[] SquareCoords, float[] UVCoords, short[] DrawOrder) {
         squareCoords = SquareCoords;
 
         // initialize vertex byte buffer for shape coordinates
@@ -257,10 +257,10 @@ public class EngineComponent {
         uvBuffer.put(uvCoords);
         uvBuffer.position(0);
 
-        UpdateBoundsSphere();
+        updateBoundsSphere();
     }
 
-    private void UpdatePointerVariable() {
+    private void updatePointerVariable() {
         mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");    // get handle to vertex shader's vPosition member
         colorUniformHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
         textureCoordinateHandle = GLES20.glGetAttribLocation(mProgram, "a_texCoord");
@@ -269,7 +269,7 @@ public class EngineComponent {
 
     }
 
-    public void Draw(float[] mViewMatrix, float[] mProjectionMatrix, float time) {
+    public void draw(float[] mViewMatrix, float[] mProjectionMatrix, float time) {
 
         //error 1280 caused by the texture
         boolean ErroreRisolto = false;
@@ -337,42 +337,42 @@ public class EngineComponent {
 
     }
 
-    public float Distance(float Wx, float Wy) {
+    public float distance(float Wx, float Wy) {
         return (float) Math.sqrt((Math.pow(_x - Wx, 2) + Math.pow(_y - Wy, 2)));
     }
 
-    public void SetColor(float[] value) {
+    public void setColor(float[] value) {
         color = value;
     }
 
 
-    public void SetScale(Vector3f scale) {
-        _scaleX = scale.X();
-        _scaleY = scale.Y();
-        _scaleZ = scale.Z();
+    public void setScale(Vector3f scale) {
+        _scaleX = scale.x();
+        _scaleY = scale.y();
+        _scaleZ = scale.z();
 
-        UpdateBoundsSphere();
+        updateBoundsSphere();
     }
 
-    public void Move(Vector3f position) {
-        _x = position.X();
-        _y = position.Y();
-        _z = position.Z();
+    public void move(Vector3f position) {
+        _x = position.x();
+        _y = position.y();
+        _z = position.z();
 
-        UpdateBoundsSphere();
+        updateBoundsSphere();
     }
 
     //in degree
-    public void Rotate(Vector3f rotationVector) {
-        _angleX = rotationVector.X();
-        _angleY = rotationVector.Y();
-        _angleZ = rotationVector.Z();
+    public void rotate(Vector3f rotationVector) {
+        _angleX = rotationVector.x();
+        _angleY = rotationVector.y();
+        _angleZ = rotationVector.z();
     }
 
-    public void Update() {
+    public void update() {
     }
 
-    public float GetPosition(int n) {
+    public float getPosition(int n) {
         switch (n) {
             case 0:
                 return _x;
@@ -384,7 +384,7 @@ public class EngineComponent {
         return _x;
     }
 
-    public float GetScale(int n) {
+    public float getScale(int n) {
         switch (n) {
             case 0:
                 return _scaleX;
@@ -396,7 +396,7 @@ public class EngineComponent {
         return _x;
     }
 
-    public boolean IsIntersectingRay(Ray3f ray) {
+    public boolean isIntersectingRay(Ray3f ray) {
         return boundingSphere.intersects(boundingSphere, ray);
     }
 
@@ -406,41 +406,41 @@ public class EngineComponent {
 
     public static interface EngineComponentInterface {
 
-        float RenderDepth = -1;
+        float renderDepth = -1;
         String id = "";
 
         int[] texturesIDs = new int[1];
         int[] texturesGL_IDs = new int[1];
         boolean checkForReuse = true;
 
-        public void Update(float dt);
+        public void update(float dt);
 
-        public void Draw(float[] mViewMatrix, float[] mProjectionMatrix, float time);
+        public void draw(float[] mViewMatrix, float[] mProjectionMatrix, float time);
 
-        public void DoAction(boolean restart);
+        public void doAction(boolean restart);
 
-        public boolean IsIntersectingRay(Ray3f ray);
+        public boolean isIntersectingRay(Ray3f ray);
 
-        public float GetRenderDepth();
+        public float getRenderDepth();
 
-        public void SetRenderDepth(float rd);
+        public void setRenderDepth(float rd);
 
-        public void SetGL_POINTER(String vertexShader, String fragmentShder);
+        public void setGL_POINTER(String vertexShader, String fragmentShder);
 
-        public void SetGL_POINTER(int program);
+        public void setGL_POINTER(int program);
 
-        public String GetID();
+        public String getID();
 
-        public void SetID(String id);
+        public void setID(String id);
 
-        public void LoadGLTexture(Context context, int id, boolean LoadNow);
+        public void loadGLTexture(Context context, int id, boolean LoadNow);
 
-        public int[] GetTextureID();
+        public int[] getTextureID();
 
-        public int[] GetTextureGL_ID();
+        public int[] getTextureGL_ID();
 
-        public void SetTextureGL_ID(int id);    //this set only the texturesID[0]
+        public void setTextureGL_ID(int id);    //this set only the texturesID[0]
 
-        public boolean GetCheckForReuse();
+        public boolean getCheckForReuse();
     }
 }

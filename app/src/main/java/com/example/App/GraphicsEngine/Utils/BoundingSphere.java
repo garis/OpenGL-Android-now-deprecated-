@@ -3,22 +3,22 @@ package com.example.App.GraphicsEngine.Utils;
 public class BoundingSphere extends Sphere {
 
     public BoundingSphere() {
-        this.SetPosition(new Point3f());
-        this.SetRadius(0);
+        this.setPosition(new Point3f());
+        this.setRadius(0);
     }
 
     public BoundingSphere(Point3f pos, float rad) {
-        this.SetPosition(pos);
-        this.SetRadius(rad);
+        this.setPosition(pos);
+        this.setRadius(rad);
     }
 
     public boolean intersects(BoundingSphere sphere, Ray3f ray) {
-        return DistanceBetween(sphere.GetPosition(), ray) < sphere.GetRadius();
+        return distanceBetween(sphere.getPosition(), ray) < sphere.getRadius();
     }
 
-    public float DistanceBetween(Point3f point, Ray3f ray) {
-        Vector3f p1ToPoint = new Vector3f().VectorBetween(ray.GetPoint(), point);
-        Vector3f p2ToPoint = new Vector3f().VectorBetween(ray.GetPoint().translate(ray.GetVector()), point);
+    public float distanceBetween(Point3f point, Ray3f ray) {
+        Vector3f p1ToPoint = new Vector3f().vectorBetween(ray.getPoint(), point);
+        Vector3f p2ToPoint = new Vector3f().vectorBetween(ray.getPoint().translate(ray.getVector()), point);
 
         // The length of the cross product gives the area of an imaginary
         // parallelogram having the two vectors as sides. A parallelogram can be
@@ -26,8 +26,8 @@ public class BoundingSphere extends Sphere {
         // twice the area of the triangle defined by the two vectors.
         // http://en.wikipedia.org/wiki/Cross_product#Geometric_meaning
 
-        float areaOfTriangleTimesTwo = p1ToPoint.Cross(p2ToPoint).Length();
-        float lengthOfBase = ray.GetVector().Length();
+        float areaOfTriangleTimesTwo = p1ToPoint.cross(p2ToPoint).length();
+        float lengthOfBase = ray.getVector().length();
 
         // The area of a triangle is also equal to (base * height) / 2. In
         // other words, the height is equal to (area * 2) / base. The height

@@ -16,7 +16,7 @@ public class SensorExperiment extends EngineGLRenderer {
     int tot = 0;
 
     public SensorExperiment(Context context) {
-        super.Initialize(context);
+        super.initialize(context);
     }
 
     public void Update() {
@@ -30,24 +30,24 @@ public class SensorExperiment extends EngineGLRenderer {
             //text.SetText(context, "S " + ((int) (finishSim - startTime)) + " C " + ((int) (finishColor - startTime))
             //        + " D " + ((int) (finishDraw - startTime)));
         }
-        super.Update();
+        super.update();
     }
 
     public void LoadItems() {
         //fluidSim.setVelocity(0.25f);
         //fluidSim.makeLine((int)((Math.min(dimension.X(),dimension.Y()))*0.3f));
 
-        LoadTextTexture(R.drawable.font_0);
-        text = new EngineComponentText(this.chracterList, this.GetTextTextureGL_INDEX());
-        text.Move(new Vector3f(-0.99f, -0.95f, 0));
-        text.SetScale(new Vector3f(0.05f, 0.05f * 16 / 9, 0.05f));
-        text.SetText(context, "V");
-        text.SetColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
+        loadTextTexture(R.drawable.font_0);
+        text = new EngineComponentText(this.chracterList, this.getTextTextureGL_INDEX());
+        text.move(new Vector3f(-0.99f, -0.95f, 0));
+        text.setScale(new Vector3f(0.05f, 0.05f * 16 / 9, 0.05f));
+        text.setText(context, "V");
+        text.setColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
         //text.SetRenderDepth(0.8f);
-        text.SetID("STATS");
+        text.setID("STATS");
         // text.lockedOnUpperLeftCorner(true);
         //text.isIn3dSpace(false);
-        super.LoadItems(text, false, null, null, false);
+        super.loadItems(text, false, null, null, false);
 
 /*
         textTot = new EngineComponentText(this.chracterList, this.GetTextTextureGL_INDEX());
@@ -61,9 +61,9 @@ public class SensorExperiment extends EngineGLRenderer {
         textTot.isIn3dSpace(false);
         super.LoadItems(textTot, false, null, null, false);
 */
-        super._camera.SetCameraPosition(new Vector3f(0, 0, -10));
-        super._camera.SetCameraLookAt(new Vector3f(0, 0, 0));
-        super.LoadItems();
+        super._camera.setCameraPosition(new Vector3f(0, 0, -10));
+        super._camera.setCameraLookAt(new Vector3f(0, 0, 0));
+        super.loadItems();
     }
 
     public void changeSettings(int actionID) {
@@ -114,7 +114,7 @@ public class SensorExperiment extends EngineGLRenderer {
             case 18:
                 break;
         }
-        text.SetText(context, "V");
+        text.setText(context, "V");
     }
 }
 

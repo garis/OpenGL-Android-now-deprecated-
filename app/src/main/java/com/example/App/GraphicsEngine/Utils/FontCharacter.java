@@ -16,35 +16,35 @@ public class FontCharacter {
         ID = -1;
     }
 
-    public int GetID() {
+    public int getID() {
         return ID;
     }
 
-    public float GetX() {
+    public float getX() {
         return x;
     }
 
-    public float GetY() {
+    public float getY() {
         return y;
     }
 
-    public float GetWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public float GetHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public float GetNormWidth() {
+    public float getNormWidth() {
         return normWidth;
     }
 
-    public float GetNormHeight() {
+    public float getNormHeight() {
         return normHeight;
     }
 
-    public boolean DecodeFromString(String str, Vector3f textureDimension) {
+    public boolean decodeFromString(String str, Vector3f textureDimension) {
         if (str.compareTo("") != 0) {
             String[] line = str.split(" ");
 
@@ -67,7 +67,7 @@ public class FontCharacter {
         }
 
         if (ID != -1) {
-            Normalize(textureDimension);
+            normalize(textureDimension);
 
             return true;
         }
@@ -75,15 +75,15 @@ public class FontCharacter {
         return false;
     }
 
-    private void Normalize(Vector3f textureDimension) {
-        y = (y / textureDimension.Y());
-        x = x / textureDimension.X();
-        width = width / textureDimension.X();
-        height = height / textureDimension.Y();
+    private void normalize(Vector3f textureDimension) {
+        y = (y / textureDimension.y());
+        x = x / textureDimension.x();
+        width = width / textureDimension.x();
+        height = height / textureDimension.y();
     }
 
-    public void NormalizeDimension(Vector3f value) {
-        normWidth = width / value.X();
-        normHeight = height / value.Y();
+    public void normalizeDimension(Vector3f value) {
+        normWidth = width / value.x();
+        normHeight = height / value.y();
     }
 }

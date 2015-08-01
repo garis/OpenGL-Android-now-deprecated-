@@ -32,80 +32,68 @@ public class SimulationView extends EngineGLRenderer {
     private List<Vector3f> touchedPoints;
 
     public SimulationView(Context context) {
-        super.Initialize(context);
+        super.initialize(context);
     }
 
-    public void Update() {
+    public synchronized void update() {
 
         if (!isStopped) {
-            //long startTime = System.currentTimeMillis();
-
             fluidSim.SimStep();
 
             fluidSim.SimStep();
 
-            //long finishSim = System.currentTimeMillis();
 
             fluidSim.computeColorMatrix(drawMode, contrast);
 
+
             if (isTracersEnable)
                 fluidSim.moveTracers();
-
-            //long finishColor = System.currentTimeMillis();
-
-            panel.SetColorBuffer(fluidSim.getColorMatrix());
-            //long finishDraw = System.currentTimeMillis();
-
+            panel.setColorBuffer(fluidSim.getColorMatrix());
 
             textCount++;
             tot++;
             tot++;
-            textTot.SetText(context, "" + tot);
-            if (textCount > 19) {
-                textCount = 0;
-                //text.SetText(context, "S " + ((int) (finishSim - startTime)) + " C " + ((int) (finishColor - startTime))
-                //        + " D " + ((int) (finishDraw - startTime)));
+            textTot.setText(context, "" + tot);
+            //if (textCount > 19) {
+            //textCount = 0;
             }
-        }
-        super.Update();
+
+        super.update();
     }
 
-    public void LoadItems() {
-        //fluidSim.setVelocity(0.25f);
-        //fluidSim.makeLine((int)((Math.min(dimension.X(),dimension.Y()))*0.3f));
+    public void loadItems() {
+        this.setWaitTime(20);
 
-        this.SetWaitTime(20);
-
-        fluidSim = new LatticeBoltzmann((int) dimension.X(), (int) dimension.Y(), 0.08f, 1024, 255);
+        fluidSim = new LatticeBoltzmann((int) dimension.x(), (int) dimension.y(), 0.08f, 1024, 255);
         fluidSim.setViscosity(0.01f);
         int[] dimension = fluidSim.getGridDimensions();
 
         panel = new EngineComponentSimColorPanel(dimension[0], dimension[1]);
-        super.LoadItems(panel, false, null, null, false);
+        super.loadItems(panel, false, null, null, false);
 
-        LoadTextTexture(R.drawable.font_0);
-        text = new EngineComponentText(this.chracterList, this.GetTextTextureGL_INDEX());
-        text.Move(new Vector3f(-0.99f, -0.95f, 0));
-        text.SetScale(new Vector3f(0.05f, 0.05f * 16 / 9, 0.05f));
-        text.SetText(context, "V" + fluidSim.getVelocity());
-        text.SetColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
+        loadTextTexture(R.drawable.font_0);
+        text = new EngineComponentText(this.chracterList, this.getTextTextureGL_INDEX());
+        text.move(new Vector3f(-0.99f, -0.95f, 0));
+        text.setScale(new Vector3f(0.05f, 0.05f * 16 / 9, 0.05f));
+        text.setText(context, "V" + fluidSim.getVelocity());
+        text.setColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
         //text.SetRenderDepth(0.8f);
-        text.SetID("STATS");
+        text.setID("STATS");
         text.lockedOnUpperLeftCorner(true);
         text.isIn3dSpace(false);
-        super.LoadItems(text, false, null, null, false);
+        super.loadItems(text, false, null, null, false);
 
 
-        textTot = new EngineComponentText(this.chracterList, this.GetTextTextureGL_INDEX());
-        textTot.Move(new Vector3f(-0.99f, -0.85f, 0));
-        textTot.SetScale(new Vector3f(0.05f, 0.05f * 16 / 9, 0.05f));
-        textTot.SetText(context, "");
-        textTot.SetColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
+        textTot = new EngineComponentText(this.chracterList, this.getTextTextureGL_INDEX());
+        textTot.move(new Vector3f(-0.99f, -0.85f, 0));
+        textTot.setScale(new Vector3f(0.05f, 0.05f * 16 / 9, 0.05f));
+        textTot.setText(context, "");
+        textTot.setColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
         //text.SetRenderDepth(0.8f);
-        textTot.SetID("COUNT");
+        textTot.setID("COUNT");
         textTot.lockedOnUpperLeftCorner(true);
         textTot.isIn3dSpace(false);
-        super.LoadItems(textTot, false, null, null, false);
+        super.loadItems(textTot, false, null, null, false);
 
 /*
         particles=new EngineComponentParticles(10,10);
@@ -118,25 +106,25 @@ public class SimulationView extends EngineGLRenderer {
         tracers[0].SetColor(new float[]{1.0f,1.0f,1.0f});
         super.LoadItems( tracers[0], false, null, null,false);
 */
-        super._camera.SetCameraPosition(new Vector3f(0, 0, -10));
-        super._camera.SetCameraLookAt(new Vector3f(0, 0, 0));
-        super.LoadItems();
+        super._camera.setCameraPosition(new Vector3f(0, 0, -10));
+        super._camera.setCameraLookAt(new Vector3f(0, 0, 0));
+        super.loadItems();
     }
 
-    public void TouchDown(Vector3f screenCoords) {
+    public void touchDown(Vector3f screenCoords) {
         Vector3f objCoords = toScreenToSim(screenCoords);
-        drawBarrier = !fluidSim.isBarrier((int) objCoords.X(), (int) objCoords.Y());
+        drawBarrier = !fluidSim.isBarrier((int) objCoords.x(), (int) objCoords.y());
         touchedPoints = new ArrayList<Vector3f>();
         touchedPoints.add(objCoords);
 
     }
 
-    public void TouchMove(Vector3f screenCoords) {
+    public void touchMove(Vector3f screenCoords) {
         Vector3f objCoords = toScreenToSim(screenCoords);
         touchedPoints.add(objCoords);
     }
 
-    public void TouchUp(Vector3f screenCoords) {
+    public void touchUp(Vector3f screenCoords) {
         Vector3f objCoords = toScreenToSim(screenCoords);
         touchedPoints.add(objCoords);
         drawBarrier(touchedPoints);
@@ -148,26 +136,26 @@ public class SimulationView extends EngineGLRenderer {
         while (iterator.hasNext()) {
             Vector3f point = iterator.next();
 
-            if (point.X() != prevPoint.X()) {
-                float m = ((point.Y() - prevPoint.Y()) / (point.X() - prevPoint.X()));
-                float q = ((point.X() * prevPoint.Y()) - (prevPoint.X() * point.Y())) / (point.X() - prevPoint.X());
-                int countX = (int) (Math.min(point.X(), prevPoint.X()));
-                while (countX < (int) (Math.max(point.X(), prevPoint.X()))) {
+            if (point.x() != prevPoint.x()) {
+                float m = ((point.y() - prevPoint.y()) / (point.x() - prevPoint.x()));
+                float q = ((point.x() * prevPoint.y()) - (prevPoint.x() * point.y())) / (point.x() - prevPoint.x());
+                int countX = (int) (Math.min(point.x(), prevPoint.x()));
+                while (countX < (int) (Math.max(point.x(), prevPoint.x()))) {
                     Vector3f p = new Vector3f((float) countX, m * countX + q, 0);
-                    fluidSim.setBarrier((int) p.X(), (int) p.Y(), drawBarrier);
+                    fluidSim.setBarrier((int) p.x(), (int) p.y(), drawBarrier);
                     countX++;
                 }
-                int countY = (int) (Math.min(point.Y(), prevPoint.Y()));
-                while (countY < (int) (Math.max(point.Y(), prevPoint.Y()))) {
+                int countY = (int) (Math.min(point.y(), prevPoint.y()));
+                while (countY < (int) (Math.max(point.y(), prevPoint.y()))) {
                     Vector3f p = new Vector3f((countY - q) / m, countY, 0);
-                    fluidSim.setBarrier((int) p.X(), (int) p.Y(), drawBarrier);
+                    fluidSim.setBarrier((int) p.x(), (int) p.y(), drawBarrier);
                     countY++;
                 }
             } else {
-                int countY = (int) (Math.min(point.Y(), prevPoint.Y()));
-                while (countY < (int) (Math.max(point.Y(), prevPoint.Y()))) {
-                    Vector3f p = new Vector3f(point.X(), countY, 0);
-                    fluidSim.setBarrier((int) p.X(), (int) p.Y(), drawBarrier);
+                int countY = (int) (Math.min(point.y(), prevPoint.y()));
+                while (countY < (int) (Math.max(point.y(), prevPoint.y()))) {
+                    Vector3f p = new Vector3f(point.x(), countY, 0);
+                    fluidSim.setBarrier((int) p.x(), (int) p.y(), drawBarrier);
                     countY++;
                 }
             }
@@ -176,8 +164,8 @@ public class SimulationView extends EngineGLRenderer {
     }
 
     private Vector3f toScreenToSim(Vector3f scrCoords) {
-        return new Vector3f(scrCoords.X() / _camera.GetScreenWidth() * dimension.X(),
-                scrCoords.Y() / _camera.GetScreenHeight() * dimension.Y(), 0);
+        return new Vector3f(scrCoords.x() / _camera.getScreenWidth() * dimension.x(),
+                scrCoords.y() / _camera.getScreenHeight() * dimension.y(), 0);
     }
 
     public void changeSettings(int actionID) {
@@ -207,14 +195,14 @@ public class SimulationView extends EngineGLRenderer {
                 drawMode = 4;
                 break;
             case 8:
-                fluidSim.makeLine((int) (dimension.X() * 0.2f));
+                fluidSim.makeLine((int) (dimension.x() * 0.2f));
                 break;
             case 9:
-                fluidSim.makeCircle((int) (dimension.X() * 0.15f));
+                fluidSim.makeCircle((int) (dimension.x() * 0.15f));
                 break;
             case 10:
-                float dim = dimension.X() * 0.04f;
-                fluidSim.makeDrop(dim, dim * (_camera.GetScreenWidth() / _camera.GetScreenHeight()));
+                float dim = dimension.x() * 0.04f;
+                fluidSim.makeDrop(dim, dim * (_camera.getScreenWidth() / _camera.getScreenHeight()));
                 break;
             case 11:
                 fluidSim.makeBellMouth(0.2f, 0.1f);
@@ -242,6 +230,6 @@ public class SimulationView extends EngineGLRenderer {
                 fluidSim.setVelocity(fluidSim.getVelocity() * -1f);
                 break;
         }
-        text.SetText(context, "V" + fluidSim.getVelocity());
+        text.setText(context, "V" + fluidSim.getVelocity());
     }
 }

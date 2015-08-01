@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 
-public class KillTheKiller extends ActionBarActivity {
+public class StartActivity extends ActionBarActivity {
 
     private MyGLSurfaceView mGLView;
 

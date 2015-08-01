@@ -15,7 +15,7 @@
 
 <android.support.v7.internal.widget.ActionBarOverlayLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/action_bar_overlay_layout"
-    android:layout_width="fill_parent"
+        android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
     <FrameLayout
@@ -36,13 +36,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:gravity="top">
-
             <android.support.v7.internal.widget.ActionBarView
                 android:id="@+id/action_bar"
                 style="?attr/actionBarStyle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
-
             <android.support.v7.internal.widget.ActionBarContextView
                 android:id="@+id/action_context_bar"
                 style="?attr/actionModeStyle"

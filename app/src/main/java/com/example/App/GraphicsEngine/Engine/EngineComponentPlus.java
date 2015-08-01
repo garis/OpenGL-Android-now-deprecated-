@@ -15,35 +15,35 @@ public class EngineComponentPlus extends EngineComponent implements EngineCompon
         renderDepth = -1;
     }
 
-    public void Update(float dt) {
+    public void update(float dt) {
         _totalTime = _totalTime + dt;
-        super.Update();
+        super.update();
     }
 
-    public float GetRenderDepth() {
+    public float getRenderDepth() {
         return renderDepth;
     }
 
-    public void SetRenderDepth(float rd) {
+    public void setRenderDepth(float rd) {
         renderDepth = rd;
     }
 
-    public void SetID(String id) {
-        ID = id;
-    }
-
-    public String GetID() {
+    public String getID() {
         return ID;
     }
 
-    public void LinkEvent(EngineEvent a) {
+    public void setID(String id) {
+        ID = id;
+    }
+
+    public void linkEvent(EngineEvent a) {
         event = a;
     }
 
-    public void DoAction(boolean restart) {
+    public void doAction(boolean restart) {
         if (restart)
             _eventTime = 0;
         if (event != null)
-            event.DoAction();
+            event.doAction();
     }
 }

@@ -97,7 +97,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
             active.updateElaspedTime(startTime - creationTIme);
 
             if (active.isReadyToStart()) {
-                active.Update();
+                active.update();
 
                 this.requestRender();
             }
@@ -132,17 +132,17 @@ public class MyGLSurfaceView extends GLSurfaceView {
                 case MotionEvent.ACTION_MOVE:
                     //active.MoveScreenAction(e.getX(), e.getY());
 
-                    active.TouchMove(new Vector3f(e.getX(), e.getY(), 0));
+                    active.touchMove(new Vector3f(e.getX(), e.getY(), 0));
                     break;
 
                 case MotionEvent.ACTION_DOWN:
                     //active.TouchedScreen(e.getX(),e.getY());
                     //active.IntersectObject(new Vector3f(e.getX(),e.getY(),0));
-                    active.TouchDown(new Vector3f(e.getX(), e.getY(), 0));
+                    active.touchDown(new Vector3f(e.getX(), e.getY(), 0));
                     break;
 
                 case MotionEvent.ACTION_UP:
-                    active.TouchUp(new Vector3f(e.getX(), e.getY(), 0));
+                    active.touchUp(new Vector3f(e.getX(), e.getY(), 0));
                     break;
             }
         }

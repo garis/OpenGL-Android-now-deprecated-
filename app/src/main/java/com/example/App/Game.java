@@ -28,7 +28,7 @@ public class Game extends EngineGLRenderer {
     private List<EngineComponentText> testo;
 
     public Game(Context context) {
-        super.Initialize(context);
+        super.initialize(context);
         testo = new ArrayList<EngineComponentText>();
     }
 
@@ -42,16 +42,16 @@ public class Game extends EngineGLRenderer {
     public void Update() {
         //for move or not the camera
 
-        if ((this.GetLastTouch().X() < this._camera.GetScreenWidth() * 0.2f) && (this.GetLastTouch().Y() < this._camera.GetScreenHeight() * 0.2f)) {
+        if ((this.getLastTouch().x() < this._camera.getScreenWidth() * 0.2f) && (this.getLastTouch().y() < this._camera.getScreenHeight() * 0.2f)) {
             float x = 0 + (float) (Math.sin(this.getElaspedTime() * multiplier)) * 20;
             float z = (float) (Math.cos(this.getElaspedTime() * multiplier)) * 20;
-            this._camera.SetCameraPosition(new Vector3f(x, 0, z));
+            this._camera.setCameraPosition(new Vector3f(x, 0, z));
         } else {
-            this._camera.SetCameraPosition(new Vector3f(0, 0, -20));
-            this._camera.SetCameraLookAt(new Vector3f(0, 0, 0));
+            this._camera.setCameraPosition(new Vector3f(0, 0, -20));
+            this._camera.setCameraLookAt(new Vector3f(0, 0, 0));
         }
 
-        bunny.Rotate(new Vector3f(0, this.getElaspedTime() / 10, 0));
+        bunny.rotate(new Vector3f(0, this.getElaspedTime() / 10, 0));
 
     	/*if(_camaroAction)
         {
@@ -82,17 +82,17 @@ public class Game extends EngineGLRenderer {
      			//txt.SetColor(new float[]{(float) Math.random(),(float) Math.random(),(float) Math.random(),(float) Math.random()});
      		}*/
         }
-        super.Update();
+        super.update();
     }
 
     public void LoadItems() {
 
-        this._camera.SetCameraPosition(new Vector3f(0, 0, -20));
-        this._camera.SetCameraLookAt(new Vector3f(0, 0, 0));
-        this.SetWaitTime(30);
-        super.ClearItems();
+        this._camera.setCameraPosition(new Vector3f(0, 0, -20));
+        this._camera.setCameraLookAt(new Vector3f(0, 0, 0));
+        this.setWaitTime(30);
+        super.clearItems();
 
-        LoadTextTexture(R.drawable.font_0);
+        loadTextTexture(R.drawable.font_0);
 
 	    /*Text textB=new Text(this.chracterList);
 	    textB.Move(new Vector3f(
@@ -134,38 +134,38 @@ public class Game extends EngineGLRenderer {
 	    super.LoadItems(textG);
 	    */
 
-        Count = new EngineComponentText(this.chracterList, this.GetTextTextureGL_INDEX());
-        Count.Move(new Vector3f(
-                ((this._camera.GetCameraPosition().X()) + 11),
-                ((this._camera.GetCameraPosition().Y())),
+        Count = new EngineComponentText(this.chracterList, this.getTextTextureGL_INDEX());
+        Count.move(new Vector3f(
+                ((this._camera.getCameraPosition().x()) + 11),
+                ((this._camera.getCameraPosition().y())),
                 0));
-        Count.SetScale(new Vector3f(2.5f, 2.5f, 2.5f));
-        Count.SetText(context, " ");
-        Count.SetColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
-        Count.SetRenderDepth(0.8f);
-        Count.SetID("Count");
+        Count.setScale(new Vector3f(2.5f, 2.5f, 2.5f));
+        Count.setText(context, " ");
+        Count.setColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
+        Count.setRenderDepth(0.8f);
+        Count.setID("Count");
 
-        Count.SetRenderDepth(0);
+        Count.setRenderDepth(0);
 
-        super.LoadItems(Count, false, null, null, false);
+        super.loadItems(Count, false, null, null, false);
 
         boolean textStress = true;
         if (textStress) {
             int tot = 3;
             for (int i = 0; i < tot; i++) {
                 for (int j = 0; j < tot; j++) {
-                    EngineComponentText text = new EngineComponentText(this.chracterList, this.GetTextTextureGL_INDEX());
-                    text.Move(new Vector3f(
-                            ((this._camera.GetCameraPosition().X()) - (tot * 2.1f / 2) + (i * 2.1f)),
-                            ((this._camera.GetCameraPosition().Y() - (tot * 2.1f / 2) + (j * 2.1f))),
+                    EngineComponentText text = new EngineComponentText(this.chracterList, this.getTextTextureGL_INDEX());
+                    text.move(new Vector3f(
+                            ((this._camera.getCameraPosition().x()) - (tot * 2.1f / 2) + (i * 2.1f)),
+                            ((this._camera.getCameraPosition().y() - (tot * 2.1f / 2) + (j * 2.1f))),
                             0));
-                    text.SetScale(new Vector3f(1.5f, 1.5f, 1.5f));
-                    text.SetText(context, "" + i + ";" + j);
-                    text.SetColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
-                    text.SetRenderDepth(0.8f);
-                    text.SetID("" + (i + j));
+                    text.setScale(new Vector3f(1.5f, 1.5f, 1.5f));
+                    text.setText(context, "" + i + ";" + j);
+                    text.setColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
+                    text.setRenderDepth(0.8f);
+                    text.setID("" + (i + j));
 
-                    super.LoadItems(text, false, null, null, false);
+                    super.loadItems(text, false, null, null, false);
                     testo.add(text);
                 }
             }
@@ -218,36 +218,36 @@ public class Game extends EngineGLRenderer {
 
             for (int i = 0; i < 3; i++) {
                 EngineComponent3D line = new EngineComponent3D();
-                line.Move(new Vector3f((this._camera.GetCameraPosition().X() - gap * 5) + (gap * i), this._camera.GetCameraPosition().Y(), 0));
-                line.LoadFromOBJ(context, "plane");
-                line.LoadGLTexture(context, R.drawable.white, false);
-                line.SetColor(new float[]{1.0f, 1.0f, 1.0f, 1.0f});
-                line.SetScale(new Vector3f(0.1f, 100, 1));
-                line.SetID("gridV" + i);
-                super.LoadItems(line, false, null, null, false);
+                line.move(new Vector3f((this._camera.getCameraPosition().x() - gap * 5) + (gap * i), this._camera.getCameraPosition().y(), 0));
+                line.loadFromOBJ(context, "plane");
+                line.loadGLTexture(context, R.drawable.white, false);
+                line.setColor(new float[]{1.0f, 1.0f, 1.0f, 1.0f});
+                line.setScale(new Vector3f(0.1f, 100, 1));
+                line.setID("gridV" + i);
+                super.loadItems(line, false, null, null, false);
             }
 
             for (int i = 0; i < 3; i++) {
                 EngineComponent3D line = new EngineComponent3D();
-                line.Move(new Vector3f(this._camera.GetCameraPosition().X(), (this._camera.GetCameraPosition().Y() - gap * 5) + (gap * i), 0));
-                line.LoadFromOBJ(context, "plane");
-                line.LoadGLTexture(context, R.drawable.white, false);
-                line.SetColor(new float[]{1.0f, 1.0f, 1.0f, 1.0f});
-                line.SetScale(new Vector3f(100, 0.1f, 1));
-                line.SetID("gridO" + i);
-                super.LoadItems(line, false, null, null, false);
+                line.move(new Vector3f(this._camera.getCameraPosition().x(), (this._camera.getCameraPosition().y() - gap * 5) + (gap * i), 0));
+                line.loadFromOBJ(context, "plane");
+                line.loadGLTexture(context, R.drawable.white, false);
+                line.setColor(new float[]{1.0f, 1.0f, 1.0f, 1.0f});
+                line.setScale(new Vector3f(100, 0.1f, 1));
+                line.setID("gridO" + i);
+                super.loadItems(line, false, null, null, false);
             }
         }
 
         bunny = new EngineComponent3D();
-        bunny.Move(new Vector3f((this._camera.GetCameraPosition().X()), this._camera.GetCameraPosition().Y(), 0));
-        bunny.LoadFromOBJ(context, "bunny");
+        bunny.move(new Vector3f((this._camera.getCameraPosition().x()), this._camera.getCameraPosition().y(), 0));
+        bunny.loadFromOBJ(context, "bunny");
         // line.LoadGLTexture(context, R.drawable.white, false);
-        bunny.SetColor(new float[]{0.67f, 0.67f, 0.67f, 1.0f});
-        bunny.SetScale(new Vector3f(1, 1, 1));
-        bunny.SetID("bunny");
-        super.LoadItems(bunny, false, null, null, false);
+        bunny.setColor(new float[]{0.67f, 0.67f, 0.67f, 1.0f});
+        bunny.setScale(new Vector3f(1, 1, 1));
+        bunny.setID("bunny");
+        super.loadItems(bunny, false, null, null, false);
 
-        super.LoadItems();
+        super.loadItems();
     }
 }

@@ -9,13 +9,13 @@ public class EngineComponent3D extends EngineComponentPlus implements EngineComp
     public EngineComponent3D() {
     }
 
-    public void LoadFromOBJ(Context context, String filename) {
+    public void loadFromOBJ(Context context, String filename) {
         OBJParser objparser = new OBJParser();
-        objparser.LoadFromOBJ(context, filename);
-        float[] SquareCoords = objparser.GetVertices();
-        float[] UVCoords = objparser.GetUVVertices();
-        short[] DrawOrder = objparser.GetOrder();
+        objparser.loadFromOBJ(context, filename);
+        float[] SquareCoords = objparser.getVertices();
+        float[] UVCoords = objparser.getUVVertices();
+        short[] DrawOrder = objparser.getOrder();
 
-        this.UpdateGeometryAndUVs(SquareCoords, UVCoords, DrawOrder);
+        this.updateGeometryAndUVs(SquareCoords, UVCoords, DrawOrder);
     }
 }

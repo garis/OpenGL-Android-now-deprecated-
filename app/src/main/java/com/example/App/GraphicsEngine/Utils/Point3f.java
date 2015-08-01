@@ -15,15 +15,15 @@ public class Point3f {
         z = vZ;
     }
 
-    public float GetX() {
+    public float getX() {
         return x;
     }
 
-    public float GetY() {
+    public float getY() {
         return y;
     }
 
-    public float GetZ() {
+    public float getZ() {
         return z;
     }
 
@@ -32,7 +32,7 @@ public class Point3f {
     }
 
     public Point3f translate(Vector3f vector) {
-        return new Point3f(x + vector.X(), y + vector.Y(), z + vector.Z());
+        return new Point3f(x + vector.x(), y + vector.y(), z + vector.z());
     }
 
 }

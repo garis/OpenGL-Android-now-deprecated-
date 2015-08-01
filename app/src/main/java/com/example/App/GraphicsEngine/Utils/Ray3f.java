@@ -19,11 +19,11 @@ public class Ray3f {
         return ("Point: " + point.toString() + " direction: " + vector.toString());
     }
 
-    public Point3f GetPoint() {
+    public Point3f getPoint() {
         return point;
     }
 
-    public Vector3f GetVector() {
+    public Vector3f getVector() {
         return vector;
     }
 }

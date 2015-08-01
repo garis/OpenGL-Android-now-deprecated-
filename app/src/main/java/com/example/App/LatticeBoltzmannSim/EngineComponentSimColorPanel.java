@@ -145,11 +145,11 @@ public class EngineComponentSimColorPanel implements EngineComponent.EngineCompo
             }
         }
 
-        UpdateBuffer();
+        updateBuffer();
     }
 
 
-    public void Draw(float[] mViewMatrix, float[] mProjectionMatrix, float time) {
+    public void draw(float[] mViewMatrix, float[] mProjectionMatrix, float time) {
 
         // Add program to OpenGL environment
         GLES20.glUseProgram(programHandle);
@@ -166,36 +166,36 @@ public class EngineComponentSimColorPanel implements EngineComponent.EngineCompo
 
 
     @Override
-    public void Update(float dt) {
+    public void update(float dt) {
 
     }
 
     @Override
-    public void DoAction(boolean restart) {
+    public void doAction(boolean restart) {
 
     }
 
     @Override
-    public boolean IsIntersectingRay(Ray3f ray) {
+    public boolean isIntersectingRay(Ray3f ray) {
         return false;
     }
 
     @Override
-    public float GetRenderDepth() {
+    public float getRenderDepth() {
         return 0;
     }
 
     @Override
-    public void SetRenderDepth(float rd) {
+    public void setRenderDepth(float rd) {
 
     }
 
     @Override
-    public void SetGL_POINTER(String vertexShader, String fragmentShder) {
+    public void setGL_POINTER(String vertexShader, String fragmentShder) {
 
     }
 
-    private void UpdateBuffer() {
+    private void updateBuffer() {
         ByteBuffer bb = ByteBuffer.allocateDirect(
                 // (# of coordinate values * 4 bytes per float)
                 Vertices.length * 4);
@@ -226,13 +226,25 @@ public class EngineComponentSimColorPanel implements EngineComponent.EngineCompo
 
     }
 
-    public void SetColorBuffer(Vector3f[][] colori) {
+    public FloatBuffer getColorBufferPointer() {
+        //colorBuffer.position(0);
+        return colorBuffer;
+    }
+
+    public void setColorBuffer(FloatBuffer colori) {
+
+        //colori.position(0);
+        colorBuffer = colori;
+        colorBuffer.position(0);
+    }
+
+    public void setColorBuffer(Vector3f[][] colori) {
         int count = 0;
         for (int y = 0; y < dimensions[1]; y++) {
             for (int x = 0; x < dimensions[0]; x++) {
-                Colors[count * 4] = colori[x][y].X();
-                Colors[count * 4 + 1] = colori[x][y].Y();
-                Colors[count * 4 + 2] = colori[x][y].Z();
+                Colors[count * 4] = colori[x][y].x();
+                Colors[count * 4 + 1] = colori[x][y].y();
+                Colors[count * 4 + 2] = colori[x][y].z();
                 count++;
             }
         }
@@ -242,41 +254,41 @@ public class EngineComponentSimColorPanel implements EngineComponent.EngineCompo
     }
 
     @Override
-    public void SetGL_POINTER(int program) {
+    public void setGL_POINTER(int program) {
     }
 
     @Override
-    public String GetID() {
+    public String getID() {
         return "";
     }
 
     @Override
-    public void SetID(String id) {
+    public void setID(String id) {
 
     }
 
     @Override
-    public void LoadGLTexture(Context context, int id, boolean LoadNow) {
+    public void loadGLTexture(Context context, int id, boolean LoadNow) {
 
     }
 
     @Override
-    public int[] GetTextureID() {
+    public int[] getTextureID() {
         return new int[]{0};
     }
 
     @Override
-    public int[] GetTextureGL_ID() {
+    public int[] getTextureGL_ID() {
         return new int[]{0};
     }
 
     @Override
-    public void SetTextureGL_ID(int id) {
+    public void setTextureGL_ID(int id) {
 
     }
 
     @Override
-    public boolean GetCheckForReuse() {
+    public boolean getCheckForReuse() {
         return false;
     }
 }
