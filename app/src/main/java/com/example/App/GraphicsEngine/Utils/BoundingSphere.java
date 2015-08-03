@@ -17,8 +17,8 @@ public class BoundingSphere extends Sphere {
     }
 
     public float distanceBetween(Point3f point, Ray3f ray) {
-        Vector3f p1ToPoint = new Vector3f().vectorBetween(ray.getPoint(), point);
-        Vector3f p2ToPoint = new Vector3f().vectorBetween(ray.getPoint().translate(ray.getVector()), point);
+        Vector3 p1ToPoint = new Vector3().vectorBetween(ray.getPoint(), point);
+        Vector3 p2ToPoint = new Vector3().vectorBetween(ray.getPoint().translate(ray.getVector()), point);
 
         // The length of the cross product gives the area of an imaginary
         // parallelogram having the two vectors as sides. A parallelogram can be
@@ -26,8 +26,8 @@ public class BoundingSphere extends Sphere {
         // twice the area of the triangle defined by the two vectors.
         // http://en.wikipedia.org/wiki/Cross_product#Geometric_meaning
 
-        float areaOfTriangleTimesTwo = p1ToPoint.cross(p2ToPoint).length();
-        float lengthOfBase = ray.getVector().length();
+        float areaOfTriangleTimesTwo = (float) (p1ToPoint.cross(p2ToPoint).length());
+        float lengthOfBase = (float) (ray.getVector().length());
 
         // The area of a triangle is also equal to (base * height) / 2. In
         // other words, the height is equal to (area * 2) / base. The height

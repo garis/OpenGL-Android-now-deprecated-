@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.App.GraphicsEngine.Engine.EngineComponentText;
 import com.example.App.GraphicsEngine.Engine.EngineGLRenderer;
-import com.example.App.GraphicsEngine.Utils.Vector3f;
+import com.example.App.GraphicsEngine.Utils.Vector3;
 
 public class SensorExperiment extends EngineGLRenderer {
 
@@ -39,8 +39,8 @@ public class SensorExperiment extends EngineGLRenderer {
 
         loadTextTexture(R.drawable.font_0);
         text = new EngineComponentText(this.chracterList, this.getTextTextureGL_INDEX());
-        text.move(new Vector3f(-0.99f, -0.95f, 0));
-        text.setScale(new Vector3f(0.05f, 0.05f * 16 / 9, 0.05f));
+        text.move(new Vector3(-0.99f, -0.95f, 0));
+        text.setScale(new Vector3(0.05f, 0.05f * 16 / 9, 0.05f));
         text.setText(context, "V");
         text.setColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
         //text.SetRenderDepth(0.8f);
@@ -51,8 +51,8 @@ public class SensorExperiment extends EngineGLRenderer {
 
 /*
         textTot = new EngineComponentText(this.chracterList, this.GetTextTextureGL_INDEX());
-        textTot.Move(new Vector3f(-0.99f, -0.85f, 0));
-        textTot.SetScale(new Vector3f(0.05f, 0.05f * 16 / 9, 0.05f));
+        textTot.Move(new Vector3(-0.99f, -0.85f, 0));
+        textTot.SetScale(new Vector3(0.05f, 0.05f * 16 / 9, 0.05f));
         textTot.SetText(context, "");
         textTot.SetColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
         //text.SetRenderDepth(0.8f);
@@ -61,8 +61,8 @@ public class SensorExperiment extends EngineGLRenderer {
         textTot.isIn3dSpace(false);
         super.LoadItems(textTot, false, null, null, false);
 */
-        super._camera.setCameraPosition(new Vector3f(0, 0, -10));
-        super._camera.setCameraLookAt(new Vector3f(0, 0, 0));
+        super._camera.setCameraPosition(new Vector3(0, 0, -10));
+        super._camera.setCameraLookAt(new Vector3(0, 0, 0));
         super.loadItems();
     }
 

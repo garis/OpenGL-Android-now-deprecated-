@@ -6,7 +6,7 @@ import android.opengl.GLES20;
 import com.example.App.GraphicsEngine.Engine.EngineComponent;
 import com.example.App.GraphicsEngine.Engine.EngineGLRenderer;
 import com.example.App.GraphicsEngine.Utils.Ray3f;
-import com.example.App.GraphicsEngine.Utils.Vector3f;
+import com.example.App.GraphicsEngine.Utils.Vector3;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -151,7 +151,7 @@ public class EngineComponentParticles implements EngineComponent.EngineComponent
 
     }
 
-    public void setVerticesBuffer(Vector3f[][] positions) {
+    public void setVerticesBuffer(Vector3[][] positions) {
         /*
         int count=0;
         for(int y=0;y<dimensions[1];y++)

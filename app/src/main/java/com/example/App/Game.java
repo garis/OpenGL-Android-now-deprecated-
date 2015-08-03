@@ -5,7 +5,7 @@ import android.content.Context;
 import com.example.App.GraphicsEngine.Engine.EngineComponent3D;
 import com.example.App.GraphicsEngine.Engine.EngineComponentText;
 import com.example.App.GraphicsEngine.Engine.EngineGLRenderer;
-import com.example.App.GraphicsEngine.Utils.Vector3f;
+import com.example.App.GraphicsEngine.Utils.Vector3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,17 +45,17 @@ public class Game extends EngineGLRenderer {
         if ((this.getLastTouch().x() < this._camera.getScreenWidth() * 0.2f) && (this.getLastTouch().y() < this._camera.getScreenHeight() * 0.2f)) {
             float x = 0 + (float) (Math.sin(this.getElaspedTime() * multiplier)) * 20;
             float z = (float) (Math.cos(this.getElaspedTime() * multiplier)) * 20;
-            this._camera.setCameraPosition(new Vector3f(x, 0, z));
+            this._camera.setCameraPosition(new Vector3(x, 0, z));
         } else {
-            this._camera.setCameraPosition(new Vector3f(0, 0, -20));
-            this._camera.setCameraLookAt(new Vector3f(0, 0, 0));
+            this._camera.setCameraPosition(new Vector3(0, 0, -20));
+            this._camera.setCameraLookAt(new Vector3(0, 0, 0));
         }
 
-        bunny.rotate(new Vector3f(0, this.getElaspedTime() / 10, 0));
+        bunny.rotate(new Vector3(0, this.getElaspedTime() / 10, 0));
 
     	/*if(_camaroAction)
         {
-    		camaro.Rotate(new Vector3f(0,this.GetTotalTime()*20,0));
+    		camaro.Rotate(new Vector3(0,this.GetTotalTime()*20,0));
     	}*/
 
         EngineComponentText txt;
@@ -87,15 +87,15 @@ public class Game extends EngineGLRenderer {
 
     public void LoadItems() {
 
-        this._camera.setCameraPosition(new Vector3f(0, 0, -20));
-        this._camera.setCameraLookAt(new Vector3f(0, 0, 0));
+        this._camera.setCameraPosition(new Vector3(0, 0, -20));
+        this._camera.setCameraLookAt(new Vector3(0, 0, 0));
         this.setWaitTime(30);
         super.clearItems();
 
         loadTextTexture(R.drawable.font_0);
 
 	    /*Text textB=new Text(this.chracterList);
-	    textB.Move(new Vector3f(
+        textB.Move(new Vector3(
 				((this._camera.GetCameraPosition().X())),
 				((this._camera.GetCameraPosition().Y())),
 				0));
@@ -107,7 +107,7 @@ public class Game extends EngineGLRenderer {
 	    
 	    
 	    Text textG=new Text(this.chracterList);
-	    textG.Move(new Vector3f(
+	    textG.Move(new Vector3(
 				((this._camera.GetCameraPosition().X())),
 				((this._camera.GetCameraPosition().Y())),
 				0));
@@ -119,7 +119,7 @@ public class Game extends EngineGLRenderer {
 	    
 	    
 	    Text textR=new Text(this.chracterList);
-	    textR.Move(new Vector3f(
+	    textR.Move(new Vector3(
 				((this._camera.GetCameraPosition().X())),
 				((this._camera.GetCameraPosition().Y())),
 				0));
@@ -135,11 +135,11 @@ public class Game extends EngineGLRenderer {
 	    */
 
         Count = new EngineComponentText(this.chracterList, this.getTextTextureGL_INDEX());
-        Count.move(new Vector3f(
+        Count.move(new Vector3(
                 ((this._camera.getCameraPosition().x()) + 11),
                 ((this._camera.getCameraPosition().y())),
                 0));
-        Count.setScale(new Vector3f(2.5f, 2.5f, 2.5f));
+        Count.setScale(new Vector3(2.5f, 2.5f, 2.5f));
         Count.setText(context, " ");
         Count.setColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
         Count.setRenderDepth(0.8f);
@@ -155,11 +155,11 @@ public class Game extends EngineGLRenderer {
             for (int i = 0; i < tot; i++) {
                 for (int j = 0; j < tot; j++) {
                     EngineComponentText text = new EngineComponentText(this.chracterList, this.getTextTextureGL_INDEX());
-                    text.move(new Vector3f(
+                    text.move(new Vector3(
                             ((this._camera.getCameraPosition().x()) - (tot * 2.1f / 2) + (i * 2.1f)),
                             ((this._camera.getCameraPosition().y() - (tot * 2.1f / 2) + (j * 2.1f))),
                             0));
-                    text.setScale(new Vector3f(1.5f, 1.5f, 1.5f));
+                    text.setScale(new Vector3(1.5f, 1.5f, 1.5f));
                     text.setText(context, "" + i + ";" + j);
                     text.setColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
                     text.setRenderDepth(0.8f);
@@ -172,8 +172,8 @@ public class Game extends EngineGLRenderer {
         }
 	    
 	    /*
-	    Text text=new Text(this.chracterList);
-	    text.Move(new Vector3f(
+        Text text=new Text(this.chracterList);
+	    text.Move(new Vector3(
 				((this._camera.GetCameraPosition().X())),
 				((this._camera.GetCameraPosition().Y())),
 				5));
@@ -183,7 +183,7 @@ public class Game extends EngineGLRenderer {
 	          
 	    Model3d gear = new Model3d();
 		gear.Move(
-				new Vector3f(
+				new Vector3(
 							((this._camera.GetCameraPosition().X()+10)),
 							((this._camera.GetCameraPosition().Y()+10)),
 							5)
@@ -191,14 +191,14 @@ public class Game extends EngineGLRenderer {
 		gear.LoadFromOBJ(context, "gear");
 		gear.LoadGLTexture(context, R.drawable.geartexture);
 		gear.SetColor(new float[]{1.0f,1.0f,1.0f,1.0f});
-		gear.SetScale(new Vector3f(3,3,3));
+		gear.SetScale(new Vector3(3,3,3));
 		gear.SetID("gear");
         super.LoadItems(gear);
         
         
 	    camaro = new Model3d();
 	    camaro.Move(
-				new Vector3f(
+				new Vector3(
 							(this._camera.GetCameraPosition().X()-10),
 							(this._camera.GetCameraPosition().Y()-10),
 							5)
@@ -206,7 +206,7 @@ public class Game extends EngineGLRenderer {
 		camaro.LoadFromOBJ(context, "camaro");
 		camaro.LoadGLTexture(context, R.drawable.white);
 		camaro.SetColor(new float[]{3.0f,3.0f,3.0f,3.0f});
-		camaro.SetScale(new Vector3f(6,6,6));
+		camaro.SetScale(new Vector3(6,6,6));
 		camaro.SetID("camaro");
         super.LoadItems(camaro);
         */
@@ -218,33 +218,33 @@ public class Game extends EngineGLRenderer {
 
             for (int i = 0; i < 3; i++) {
                 EngineComponent3D line = new EngineComponent3D();
-                line.move(new Vector3f((this._camera.getCameraPosition().x() - gap * 5) + (gap * i), this._camera.getCameraPosition().y(), 0));
+                line.move(new Vector3((this._camera.getCameraPosition().x() - gap * 5) + (gap * i), this._camera.getCameraPosition().y(), 0));
                 line.loadFromOBJ(context, "plane");
                 line.loadGLTexture(context, R.drawable.white, false);
                 line.setColor(new float[]{1.0f, 1.0f, 1.0f, 1.0f});
-                line.setScale(new Vector3f(0.1f, 100, 1));
+                line.setScale(new Vector3(0.1f, 100, 1));
                 line.setID("gridV" + i);
                 super.loadItems(line, false, null, null, false);
             }
 
             for (int i = 0; i < 3; i++) {
                 EngineComponent3D line = new EngineComponent3D();
-                line.move(new Vector3f(this._camera.getCameraPosition().x(), (this._camera.getCameraPosition().y() - gap * 5) + (gap * i), 0));
+                line.move(new Vector3(this._camera.getCameraPosition().x(), (this._camera.getCameraPosition().y() - gap * 5) + (gap * i), 0));
                 line.loadFromOBJ(context, "plane");
                 line.loadGLTexture(context, R.drawable.white, false);
                 line.setColor(new float[]{1.0f, 1.0f, 1.0f, 1.0f});
-                line.setScale(new Vector3f(100, 0.1f, 1));
+                line.setScale(new Vector3(100, 0.1f, 1));
                 line.setID("gridO" + i);
                 super.loadItems(line, false, null, null, false);
             }
         }
 
         bunny = new EngineComponent3D();
-        bunny.move(new Vector3f((this._camera.getCameraPosition().x()), this._camera.getCameraPosition().y(), 0));
+        bunny.move(new Vector3((this._camera.getCameraPosition().x()), this._camera.getCameraPosition().y(), 0));
         bunny.loadFromOBJ(context, "bunny");
         // line.LoadGLTexture(context, R.drawable.white, false);
         bunny.setColor(new float[]{0.67f, 0.67f, 0.67f, 1.0f});
-        bunny.setScale(new Vector3f(1, 1, 1));
+        bunny.setScale(new Vector3(1, 1, 1));
         bunny.setID("bunny");
         super.loadItems(bunny, false, null, null, false);
 

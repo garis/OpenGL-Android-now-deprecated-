@@ -6,7 +6,6 @@ import android.opengl.GLES20;
 import com.example.App.GraphicsEngine.Engine.EngineComponent;
 import com.example.App.GraphicsEngine.Engine.EngineGLRenderer;
 import com.example.App.GraphicsEngine.Utils.Ray3f;
-import com.example.App.GraphicsEngine.Utils.Vector3f;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -229,28 +228,6 @@ public class EngineComponentSimColorPanel implements EngineComponent.EngineCompo
     public FloatBuffer getColorBufferPointer() {
         //colorBuffer.position(0);
         return colorBuffer;
-    }
-
-    public void setColorBuffer(FloatBuffer colori) {
-
-        //colori.position(0);
-        colorBuffer = colori;
-        colorBuffer.position(0);
-    }
-
-    public void setColorBuffer(Vector3f[][] colori) {
-        int count = 0;
-        for (int y = 0; y < dimensions[1]; y++) {
-            for (int x = 0; x < dimensions[0]; x++) {
-                Colors[count * 4] = colori[x][y].x();
-                Colors[count * 4 + 1] = colori[x][y].y();
-                Colors[count * 4 + 2] = colori[x][y].z();
-                count++;
-            }
-        }
-        colorBuffer.position(0);
-        colorBuffer.put(Colors);
-        colorBuffer.position(0);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.example.App.GraphicsEngine.Engine;
 
-import com.example.App.GraphicsEngine.Utils.Vector3f;
+import com.example.App.GraphicsEngine.Utils.Vector3;
 
 public class EngineComponentImage extends EngineComponentPlus implements EngineComponent.EngineComponentInterface {
 
@@ -19,7 +19,7 @@ public class EngineComponentImage extends EngineComponentPlus implements EngineC
 
     public void update(float dt) {
         if (selected) {
-            this.rotate(new Vector3f(0, 0, _totalTime * 20));
+            this.rotate(new Vector3(0, 0, _totalTime * 20));
         }
     }
 

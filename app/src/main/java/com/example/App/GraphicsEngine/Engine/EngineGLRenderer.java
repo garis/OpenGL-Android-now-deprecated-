@@ -12,7 +12,7 @@ import android.util.Log;
 
 import com.example.App.GraphicsEngine.Utils.Camera;
 import com.example.App.GraphicsEngine.Utils.ListCharacter;
-import com.example.App.GraphicsEngine.Utils.Vector3f;
+import com.example.App.GraphicsEngine.Utils.Vector3;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -67,7 +67,7 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
     private List<EngineComponent.EngineComponentInterface> _images;
     private long _dt;
     private float _totalTime;
-    private Vector3f _lastTouch;
+    private Vector3 _lastTouch;
     private float ZNear;
     private float ZFar;
     private boolean isUpdated;
@@ -127,7 +127,7 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
 
         _camera = new Camera();
 
-        _lastTouch = new Vector3f(0, 0, 0);
+        _lastTouch = new Vector3(0, 0, 0);
 
         selectedObjects = new ArrayList<EngineComponent.EngineComponentInterface>();
         _images = new ArrayList<EngineComponent.EngineComponentInterface>();
@@ -352,11 +352,11 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
         return _dt;
     }
 
-    protected Vector3f getLastTouch() {
+    protected Vector3 getLastTouch() {
         return _lastTouch;
     }
 
-    public void touchDown(Vector3f screenCoords) {
+    public void touchDown(Vector3 screenCoords) {
         _camera.touch(screenCoords);
         testIntersection();
 
@@ -364,12 +364,12 @@ public class EngineGLRenderer implements EngineGLRendererInterface {
     }
 
     @Override
-    public void touchMove(Vector3f screenCoords) {
+    public void touchMove(Vector3 screenCoords) {
 
     }
 
     @Override
-    public void touchUp(Vector3f screenCoords) {
+    public void touchUp(Vector3 screenCoords) {
 
     }
 

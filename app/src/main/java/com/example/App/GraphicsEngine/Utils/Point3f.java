@@ -31,8 +31,8 @@ public class Point3f {
         return "( " + x + " " + y + " " + z + " )";
     }
 
-    public Point3f translate(Vector3f vector) {
-        return new Point3f(x + vector.x(), y + vector.y(), z + vector.z());
+    public Point3f translate(Vector3 vector) {
+        return new Point3f(x + (float) vector.x(), y + (float) vector.y(), z + (float) vector.z());
     }
 
 }

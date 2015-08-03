@@ -11,7 +11,7 @@ import android.util.Log;
 import com.example.App.GraphicsEngine.Utils.BoundingSphere;
 import com.example.App.GraphicsEngine.Utils.Point3f;
 import com.example.App.GraphicsEngine.Utils.Ray3f;
-import com.example.App.GraphicsEngine.Utils.Vector3f;
+import com.example.App.GraphicsEngine.Utils.Vector3;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -346,27 +346,27 @@ public class EngineComponent {
     }
 
 
-    public void setScale(Vector3f scale) {
-        _scaleX = scale.x();
-        _scaleY = scale.y();
-        _scaleZ = scale.z();
+    public void setScale(Vector3 scale) {
+        _scaleX = (float) scale.x();
+        _scaleY = (float) scale.y();
+        _scaleZ = (float) scale.z();
 
         updateBoundsSphere();
     }
 
-    public void move(Vector3f position) {
-        _x = position.x();
-        _y = position.y();
-        _z = position.z();
+    public void move(Vector3 position) {
+        _x = (float) position.x();
+        _y = (float) position.y();
+        _z = (float) position.z();
 
         updateBoundsSphere();
     }
 
     //in degree
-    public void rotate(Vector3f rotationVector) {
-        _angleX = rotationVector.x();
-        _angleY = rotationVector.y();
-        _angleZ = rotationVector.z();
+    public void rotate(Vector3 rotationVector) {
+        _angleX = (float) rotationVector.x();
+        _angleY = (float) rotationVector.y();
+        _angleZ = (float) rotationVector.z();
     }
 
     public void update() {

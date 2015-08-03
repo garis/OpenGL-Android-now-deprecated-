@@ -68,7 +68,7 @@ public class ListCharacter {
         Iterator<String> iterator = file.iterator();
         iterator.next();
         String[] line = iterator.next().split(" ");
-        Vector3f textureDim = new Vector3f();
+        Vector3 textureDim = new Vector3();
         if (line[0].compareTo("common") == 0) {
             for (int i = 0; i < line.length; i++) {
                 String[] segment = line[i].split("=");
@@ -96,7 +96,7 @@ public class ListCharacter {
 
         Iterator<FontCharacter> normIterator = chracterList.iterator();
         while (normIterator.hasNext()) {
-            normIterator.next().normalizeDimension(new Vector3f(maxWidth, maxHeight, 0));
+            normIterator.next().normalizeDimension(new Vector3(maxWidth, maxHeight, 0));
         }
 
         vectorChracterList = new FontCharacter[chracterList.size()];

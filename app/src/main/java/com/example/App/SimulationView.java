@@ -4,10 +4,11 @@ import android.content.Context;
 
 import com.example.App.GraphicsEngine.Engine.EngineComponentText;
 import com.example.App.GraphicsEngine.Engine.EngineGLRenderer;
-import com.example.App.GraphicsEngine.Utils.Vector3f;
+import com.example.App.GraphicsEngine.Utils.Vector3;
 import com.example.App.LatticeBoltzmannSim.EngineComponentSimColorPanel;
 import com.example.App.LatticeBoltzmannSim.LatticeBoltzmann;
 
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,7 +20,7 @@ public class SimulationView extends EngineGLRenderer {
     boolean isTracersEnable = false;
     LatticeBoltzmann fluidSim;
     int value = 180;
-    Vector3f dimension = new Vector3f(value, value / 16 * 9, 0);
+    Vector3 dimension = new Vector3(value, value / 16 * 9, 0);
     EngineComponentText text;
     EngineComponentText textTot;
     // EngineComponentParticles particles;
@@ -29,7 +30,9 @@ public class SimulationView extends EngineGLRenderer {
     int tot = 0;
     private boolean drawBarrier;
     private EngineComponentSimColorPanel panel;
-    private List<Vector3f> touchedPoints;
+    private List<Vector3> touchedPoints;
+
+    private FloatBuffer colorBuffer;
 
     public SimulationView(Context context) {
         super.initialize(context);
@@ -43,12 +46,13 @@ public class SimulationView extends EngineGLRenderer {
             fluidSim.SimStep();
 
 
-            fluidSim.computeColorMatrix(drawMode, contrast);
+            fluidSim.computeColor(drawMode, contrast);
 
 
             if (isTracersEnable)
                 fluidSim.moveTracers();
-            panel.setColorBuffer(fluidSim.getColorMatrix());
+            //panel.setColorBuffer(fluidSim.getColorMatrix());
+            fluidSim.fillBuffer(colorBuffer);
 
             textCount++;
             tot++;
@@ -73,8 +77,8 @@ public class SimulationView extends EngineGLRenderer {
 
         loadTextTexture(R.drawable.font_0);
         text = new EngineComponentText(this.chracterList, this.getTextTextureGL_INDEX());
-        text.move(new Vector3f(-0.99f, -0.95f, 0));
-        text.setScale(new Vector3f(0.05f, 0.05f * 16 / 9, 0.05f));
+        text.move(new Vector3(-0.99f, -0.95f, 0));
+        text.setScale(new Vector3(0.05f, 0.05f * 16 / 9, 0.05f));
         text.setText(context, "V" + fluidSim.getVelocity());
         text.setColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
         //text.SetRenderDepth(0.8f);
@@ -85,8 +89,8 @@ public class SimulationView extends EngineGLRenderer {
 
 
         textTot = new EngineComponentText(this.chracterList, this.getTextTextureGL_INDEX());
-        textTot.move(new Vector3f(-0.99f, -0.85f, 0));
-        textTot.setScale(new Vector3f(0.05f, 0.05f * 16 / 9, 0.05f));
+        textTot.move(new Vector3(-0.99f, -0.85f, 0));
+        textTot.setScale(new Vector3(0.05f, 0.05f * 16 / 9, 0.05f));
         textTot.setText(context, "");
         textTot.setColor(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
         //text.SetRenderDepth(0.8f);
@@ -101,70 +105,72 @@ public class SimulationView extends EngineGLRenderer {
 */
 /*
         tracers[0]=new EngineComponentImage();
-        tracers[0].SetScale(new Vector3f(0.05f,0.05f,0.05f));
+        tracers[0].SetScale(new Vector3(0.05f,0.05f,0.05f));
 
         tracers[0].SetColor(new float[]{1.0f,1.0f,1.0f});
         super.LoadItems( tracers[0], false, null, null,false);
 */
-        super._camera.setCameraPosition(new Vector3f(0, 0, -10));
-        super._camera.setCameraLookAt(new Vector3f(0, 0, 0));
+        colorBuffer = panel.getColorBufferPointer();
+
+        super._camera.setCameraPosition(new Vector3(0, 0, -10));
+        super._camera.setCameraLookAt(new Vector3(0, 0, 0));
         super.loadItems();
     }
 
-    public void touchDown(Vector3f screenCoords) {
-        Vector3f objCoords = toScreenToSim(screenCoords);
+    public void touchDown(Vector3 screenCoords) {
+        Vector3 objCoords = toScreenToSim(screenCoords);
         drawBarrier = !fluidSim.isBarrier((int) objCoords.x(), (int) objCoords.y());
-        touchedPoints = new ArrayList<Vector3f>();
+        touchedPoints = new ArrayList<Vector3>();
         touchedPoints.add(objCoords);
 
     }
 
-    public void touchMove(Vector3f screenCoords) {
-        Vector3f objCoords = toScreenToSim(screenCoords);
+    public void touchMove(Vector3 screenCoords) {
+        Vector3 objCoords = toScreenToSim(screenCoords);
         touchedPoints.add(objCoords);
     }
 
-    public void touchUp(Vector3f screenCoords) {
-        Vector3f objCoords = toScreenToSim(screenCoords);
+    public void touchUp(Vector3 screenCoords) {
+        Vector3 objCoords = toScreenToSim(screenCoords);
         touchedPoints.add(objCoords);
         drawBarrier(touchedPoints);
     }
 
-    private void drawBarrier(List<Vector3f> touchedPoints) {
-        Iterator<Vector3f> iterator = touchedPoints.iterator();
-        Vector3f prevPoint = iterator.next();
+    private void drawBarrier(List<Vector3> touchedPoints) {
+        Iterator<Vector3> iterator = touchedPoints.iterator();
+        Vector3 prevPoint = iterator.next();
         while (iterator.hasNext()) {
-            Vector3f point = iterator.next();
+            Vector3 point = iterator.next();
 
             if (point.x() != prevPoint.x()) {
-                float m = ((point.y() - prevPoint.y()) / (point.x() - prevPoint.x()));
-                float q = ((point.x() * prevPoint.y()) - (prevPoint.x() * point.y())) / (point.x() - prevPoint.x());
-                int countX = (int) (Math.min(point.x(), prevPoint.x()));
-                while (countX < (int) (Math.max(point.x(), prevPoint.x()))) {
-                    Vector3f p = new Vector3f((float) countX, m * countX + q, 0);
+                double m = ((point.y() - prevPoint.y()) / (point.x() - prevPoint.x()));
+                double q = ((point.x() * prevPoint.y()) - (prevPoint.x() * point.y())) / (point.x() - prevPoint.x());
+                double countX = (Math.min(point.x(), prevPoint.x()));
+                while (countX < Math.max(point.x(), prevPoint.x())) {
+                    Vector3 p = new Vector3(countX, (m * countX + q), 0);
                     fluidSim.setBarrier((int) p.x(), (int) p.y(), drawBarrier);
-                    countX++;
+                    countX = countX + 0.2D;
                 }
-                int countY = (int) (Math.min(point.y(), prevPoint.y()));
-                while (countY < (int) (Math.max(point.y(), prevPoint.y()))) {
-                    Vector3f p = new Vector3f((countY - q) / m, countY, 0);
+                double countY = Math.min(point.y(), prevPoint.y());
+                while (countY < Math.max(point.y(), prevPoint.y())) {
+                    Vector3 p = new Vector3((countY - q) / m, countY, 0);
                     fluidSim.setBarrier((int) p.x(), (int) p.y(), drawBarrier);
-                    countY++;
+                    countY = countY + 0.2D;
                 }
             } else {
-                int countY = (int) (Math.min(point.y(), prevPoint.y()));
-                while (countY < (int) (Math.max(point.y(), prevPoint.y()))) {
-                    Vector3f p = new Vector3f(point.x(), countY, 0);
+                double countY = Math.min(point.y(), prevPoint.y());
+                while (countY < Math.max(point.y(), prevPoint.y())) {
+                    Vector3 p = new Vector3(point.x(), countY, 0);
                     fluidSim.setBarrier((int) p.x(), (int) p.y(), drawBarrier);
-                    countY++;
+                    countY = countY + 0.2D;
                 }
             }
             prevPoint = point;
         }
     }
 
-    private Vector3f toScreenToSim(Vector3f scrCoords) {
-        return new Vector3f(scrCoords.x() / _camera.getScreenWidth() * dimension.x(),
+    private Vector3 toScreenToSim(Vector3 scrCoords) {
+        return new Vector3(scrCoords.x() / _camera.getScreenWidth() * dimension.x(),
                 scrCoords.y() / _camera.getScreenHeight() * dimension.y(), 0);
     }
 
@@ -201,8 +207,8 @@ public class SimulationView extends EngineGLRenderer {
                 fluidSim.makeCircle((int) (dimension.x() * 0.15f));
                 break;
             case 10:
-                float dim = dimension.x() * 0.04f;
-                fluidSim.makeDrop(dim, dim * (_camera.getScreenWidth() / _camera.getScreenHeight()));
+                double dim = dimension.x() * 0.04d;
+                fluidSim.makeDrop((float) dim, (float) (dim * (_camera.getScreenWidth() / _camera.getScreenHeight())));
                 break;
             case 11:
                 fluidSim.makeBellMouth(0.2f, 0.1f);

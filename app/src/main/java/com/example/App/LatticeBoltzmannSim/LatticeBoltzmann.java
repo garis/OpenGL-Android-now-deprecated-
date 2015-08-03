@@ -2,7 +2,9 @@ package com.example.App.LatticeBoltzmannSim;
 
 import android.graphics.Color;
 
-import com.example.App.GraphicsEngine.Utils.Vector3f;
+import com.example.App.GraphicsEngine.Utils.Vector3;
+
+import java.nio.FloatBuffer;
 
 public class LatticeBoltzmann {
 
@@ -28,7 +30,7 @@ public class LatticeBoltzmann {
     double[][] yvel;        // macroscopic y velocity
     double[][] speed2;        // macroscopic speed squared
     double[][] curl;
-    Vector3f[][] colorMatrix;
+    float[] colorVector;
     int time;
 
     int nTracers = 256;
@@ -51,7 +53,7 @@ public class LatticeBoltzmann {
 
     boolean isTracerEnable;
 
-    Vector3f[] vectorColors;
+    Vector3[] vectorColors;
 
     int drawType = 0;
 
@@ -93,7 +95,7 @@ public class LatticeBoltzmann {
         yvel = new double[xdim][ydim];
         speed2 = new double[xdim][ydim];
         curl = new double[xdim][ydim];
-        colorMatrix = new Vector3f[xdim][ydim];
+        colorVector = new float[xdim * ydim * 4];
 
         barrier = new boolean[xdim][ydim];
 
@@ -143,7 +145,7 @@ public class LatticeBoltzmann {
 
     public void initColorArray(int nColors) {
         //Color[] shade = new Color[nColors];
-        vectorColors = new Vector3f[nColors];
+        vectorColors = new Vector3[nColors];
 
         float HUE = 0;
         float HSV = 1f;
@@ -151,7 +153,7 @@ public class LatticeBoltzmann {
         for (int i = 0; i < nColors; i++) {
             HUE = HUE + gap;
             int color = Color.HSVToColor(new float[]{HUE, HSV, 0.3f});
-            vectorColors[i] = new Vector3f((float) (Color.red(color)) / 255, (float) (Color.green(color)) / 255, (float) (Color.blue(color)) / 255);    // store each color as an integer
+            vectorColors[i] = new Vector3((float) (Color.red(color)) / 255, (float) (Color.green(color)) / 255, (float) (Color.blue(color)) / 255);    // store each color as an integer
         }
     }
 
@@ -449,7 +451,7 @@ public class LatticeBoltzmann {
 
     // Move the tracer particles according to the macroscopic velocity:
     public void moveTracers() {
-        Vector3f white = new Vector3f(1.0f, 1.0f, 1.0f);
+        Vector3 white = new Vector3(1.0f, 1.0f, 1.0f);
         for (int t = 0; t < nTracers; t++) {
             int x = (int) tracerx[t];                    // convert coordinates to integers
             int y = (int) tracery[t];
@@ -460,10 +462,20 @@ public class LatticeBoltzmann {
             if (tracery[t] < 0) tracery[t] = 0;
             if (tracery[t] >= ydim) tracery[t] = ydim - 1;
 
-            colorMatrix[(int) tracerx[t]][(int) tracery[t]] = white;
+            setColorVector((int) tracerx[t], (int) tracery[t], white);
         }
 
         // Compute the curl of the velocity field, paying special attention to edges:
+    }
+
+    private void setColorVector(int x, int y, Vector3 value) {
+        int pos = y * xdim * 4 + x * 4;
+        //int pos = x * ydim + y;
+        colorVector[pos] = (float) value.x();
+        colorVector[pos + 1] = (float) value.y();
+        colorVector[pos + 2] = (float) value.z();
+        //alpha value, in another words the transparency
+        colorVector[pos + 3] = 1.0f;
     }
 
     void computeCurl() {
@@ -486,7 +498,7 @@ public class LatticeBoltzmann {
      * @param plotType 0 for velocity, 1 for x velocity, 2 for y velocity, 3 for curl, 4 for density
      * @param contrast rank from which a piece is being moved
      */
-    public void computeColorMatrix(int plotType, float contrast) {
+    public void computeColor(int plotType, float contrast) {
 
         drawType = plotType;
         if (plotType == 3) {
@@ -496,8 +508,7 @@ public class LatticeBoltzmann {
         for (int y = ydim - 1; y >= 0; y--) {        // note that we loop over y (row number) first, high to low
             for (int x = 0; x < xdim; x++) {
                 if (barrier[x][y]) {
-                    //g.setColor(Color.black);
-                    colorMatrix[x][y] = new Vector3f(0.0f, 0.0f, 0.0f);
+                    setColorVector(x, y, new Vector3(0.0f, 0.0f, 0.0f));
                 } else {
                     int colorIndex;
                     if (plotType == 0) {
@@ -514,14 +525,18 @@ public class LatticeBoltzmann {
                     }
                     if (colorIndex < 0) colorIndex = 0;
                     if (colorIndex >= vectorColors.length) colorIndex = vectorColors.length - 1;
-                    colorMatrix[x][y] = vectorColors[colorIndex];
+
+                    setColorVector(x, y, vectorColors[colorIndex]);
                 }
             }
         }
     }
 
-    public Vector3f[][] getColorMatrix() {
-        return colorMatrix;
+    public FloatBuffer fillBuffer(FloatBuffer buffer) {
+        buffer.position(0);
+        buffer.put(colorVector);
+        buffer.position(0);
+        return buffer;
     }
 
     public void isDebug(boolean flag) {

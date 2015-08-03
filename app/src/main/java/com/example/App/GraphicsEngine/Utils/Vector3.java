@@ -1,22 +1,22 @@
 package com.example.App.GraphicsEngine.Utils;
 
-public class Vector3f {
+public class Vector3 {
 
-    private float xyz[] = new float[3];
+    private double xyz[] = new double[3];
 
-    public Vector3f() {
+    public Vector3() {
         xyz[0] = 0;
         xyz[1] = 0;
         xyz[2] = 0;
     }
 
-    public Vector3f(float x, float y, float z) {
+    public Vector3(double x, double y, double z) {
         xyz[0] = x;
         xyz[1] = y;
         xyz[2] = z;
     }
 
-    public Vector3f(float[] array) {
+    public Vector3(double[] array) {
         if (array.length != 3)
             throw new RuntimeException("Must create vector with 3 element array");
 
@@ -25,48 +25,48 @@ public class Vector3f {
         xyz[2] = array[2];
     }
 
-    public float[] array() {
+    public double[] array() {
         return xyz.clone();
     }
 
-    public float length() {
-        return (float) (Math.sqrt(xyz[0] * xyz[0] + xyz[1] * xyz[1] + xyz[2] * xyz[2]));
+    public double length() {
+        return (double) (Math.sqrt(xyz[0] * xyz[0] + xyz[1] * xyz[1] + xyz[2] * xyz[2]));
     }
 
-    public Vector3f add(Vector3f rhs) {
-        return new Vector3f(
+    public Vector3 add(Vector3 rhs) {
+        return new Vector3(
                 xyz[0] + rhs.xyz[0],
                 xyz[1] + rhs.xyz[1],
                 xyz[2] + rhs.xyz[2]);
     }
 
-    public Vector3f sub(Vector3f rhs) {
-        return new Vector3f(
+    public Vector3 sub(Vector3 rhs) {
+        return new Vector3(
                 xyz[0] - rhs.xyz[0],
                 xyz[1] - rhs.xyz[1],
                 xyz[2] - rhs.xyz[2]);
     }
 
-    public Vector3f neg() {
-        return new Vector3f(-xyz[0], -xyz[1], -xyz[2]);
+    public Vector3 neg() {
+        return new Vector3(-xyz[0], -xyz[1], -xyz[2]);
     }
 
-    public Vector3f mul(float c) {
-        return new Vector3f(c * xyz[0], c * xyz[1], c * xyz[2]);
+    public Vector3 mul(double c) {
+        return new Vector3(c * xyz[0], c * xyz[1], c * xyz[2]);
     }
 
-    public Vector3f div(float c) {
-        return new Vector3f(xyz[0] / c, xyz[1] / c, xyz[2] / c);
+    public Vector3 div(double c) {
+        return new Vector3(xyz[0] / c, xyz[1] / c, xyz[2] / c);
     }
 
-    public float dot(Vector3f rhs) {
+    public double dot(Vector3 rhs) {
         return xyz[0] * rhs.xyz[0] +
                 xyz[1] * rhs.xyz[1] +
                 xyz[2] * rhs.xyz[2];
     }
 
-    public Vector3f cross(Vector3f rhs) {
-        return new Vector3f(
+    public Vector3 cross(Vector3 rhs) {
+        return new Vector3(
                 xyz[1] * rhs.xyz[2] - xyz[2] * rhs.xyz[1],
                 xyz[0] * rhs.xyz[2] - xyz[2] * rhs.xyz[0],
                 xyz[0] * rhs.xyz[1] - xyz[1] * rhs.xyz[0]
@@ -74,8 +74,8 @@ public class Vector3f {
     }
 
     public boolean equals(Object obj) {
-        if (obj instanceof Vector3f) {
-            Vector3f rhs = (Vector3f) obj;
+        if (obj instanceof Vector3) {
+            Vector3 rhs = (Vector3) obj;
 
             return xyz[0] == rhs.xyz[0] &&
                     xyz[1] == rhs.xyz[1] &&
@@ -86,35 +86,35 @@ public class Vector3f {
 
     }
 
-    public float norm() {
-        return (float) Math.sqrt(this.dot(this));
+    public double norm() {
+        return (double) Math.sqrt(this.dot(this));
     }
 
-    public Vector3f normalize() {
+    public Vector3 normalize() {
         return this.div(norm());
     }
 
-    public void x(float value) {
+    public void x(double value) {
         xyz[0] = value;
     }
 
-    public void y(float value) {
+    public void y(double value) {
         xyz[1] = value;
     }
 
-    public void z(float value) {
+    public void z(double value) {
         xyz[2] = value;
     }
 
-    public float x() {
+    public double x() {
         return xyz[0];
     }
 
-    public float y() {
+    public double y() {
         return xyz[1];
     }
 
-    public float z() {
+    public double z() {
         return xyz[2];
     }
 
@@ -122,7 +122,7 @@ public class Vector3f {
         return "( " + xyz[0] + " " + xyz[1] + " " + xyz[2] + " )";
     }
 
-    public Vector3f vectorBetween(Point3f from, Point3f to) {
-        return new Vector3f(to.getX() - from.getX(), to.getY() - from.getY(), to.getZ() - from.getZ());
+    public Vector3 vectorBetween(Point3f from, Point3f to) {
+        return new Vector3(to.getX() - from.getX(), to.getY() - from.getY(), to.getZ() - from.getZ());
     }
 }

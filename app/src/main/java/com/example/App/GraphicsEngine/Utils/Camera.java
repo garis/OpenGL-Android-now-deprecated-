@@ -50,21 +50,21 @@ public class Camera {
         return ScreenHeight;
     }
 
-    public void setCameraLookAt(Vector3f lookAt) {
-        _cameraLAX = lookAt.x();
-        _cameraLAY = lookAt.y();
-        _cameraLAZ = lookAt.z();
+    public void setCameraLookAt(Vector3 lookAt) {
+        _cameraLAX = (float) lookAt.x();
+        _cameraLAY = (float) lookAt.y();
+        _cameraLAZ = (float) lookAt.z();
         setViewMatrix();
     }
 
-    public Vector3f getCameraPosition() {
-        return new Vector3f(_cameraX, _cameraY, _cameraZ);
+    public Vector3 getCameraPosition() {
+        return new Vector3(_cameraX, _cameraY, _cameraZ);
     }
 
-    public void setCameraPosition(Vector3f position) {
-        _cameraX = position.x();
-        _cameraY = position.y();
-        _cameraZ = position.z();
+    public void setCameraPosition(Vector3 position) {
+        _cameraX = (float) position.x();
+        _cameraY = (float) position.y();
+        _cameraZ = (float) position.z();
         setViewMatrix();
     }
 
@@ -94,9 +94,9 @@ public class Camera {
         return ProjectionMatrix;
     }
 
-    public void touch(Vector3f screenCoords) {
-        float normalizedX = (screenCoords.x() / ScreenWidth) * 2 - 1;
-        float normalizedY = -((screenCoords.y() / ScreenHeight) * 2 - 1);
+    public void touch(Vector3 screenCoords) {
+        float normalizedX = (float) (screenCoords.x() / ScreenWidth) * 2 - 1;
+        float normalizedY = (float) -((screenCoords.y() / ScreenHeight) * 2 - 1);
 
         // We'll convert these normalized device coordinates into world-space
         // coordinates. We'll pick a point on the near and far planes, and draw a
@@ -117,7 +117,7 @@ public class Camera {
         Point3f nearPointRay = new Point3f(nearPointWorld[0], nearPointWorld[1], nearPointWorld[2]);
         Point3f farPointRay = new Point3f(farPointWorld[0], farPointWorld[1], farPointWorld[2]);
 
-        Vector3f directinVector = new Vector3f().vectorBetween(nearPointRay, farPointRay);
+        Vector3 directinVector = new Vector3().vectorBetween(nearPointRay, farPointRay);
 
         ray = new Ray3f(nearPointRay, directinVector);
     }

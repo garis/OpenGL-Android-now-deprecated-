@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.App.GraphicsEngine.Utils.FontCharacter;
 import com.example.App.GraphicsEngine.Utils.ListCharacter;
-import com.example.App.GraphicsEngine.Utils.Vector3f;
+import com.example.App.GraphicsEngine.Utils.Vector3;
 
 public class EngineComponentText extends EngineComponentPlus implements EngineComponent.EngineComponentInterface {
 
@@ -24,7 +24,7 @@ public class EngineComponentText extends EngineComponentPlus implements EngineCo
 
     public void update(float dt) {
         if (selected) {
-            this.rotate(new Vector3f(0, this._totalTime, 0));
+            this.rotate(new Vector3(0, this._totalTime, 0));
         }
         super.update(dt);
     }

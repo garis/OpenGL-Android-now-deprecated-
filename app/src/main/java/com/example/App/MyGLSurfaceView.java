@@ -23,7 +23,7 @@ import android.os.Debug;
 import android.view.MotionEvent;
 
 import com.example.App.GraphicsEngine.Engine.EngineGLRenderer;
-import com.example.App.GraphicsEngine.Utils.Vector3f;
+import com.example.App.GraphicsEngine.Utils.Vector3;
 
 /**
  * A view container where OpenGL ES graphics can be drawn on screen.
@@ -68,9 +68,8 @@ public class MyGLSurfaceView extends GLSurfaceView {
         sim = new SimulationView(context);
         setRenderer(sim);
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
-        active = sim;
 
-        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        active = sim;
         setAndStart();
 
         /*exp=new SensorExperiment(context);
@@ -132,17 +131,17 @@ public class MyGLSurfaceView extends GLSurfaceView {
                 case MotionEvent.ACTION_MOVE:
                     //active.MoveScreenAction(e.getX(), e.getY());
 
-                    active.touchMove(new Vector3f(e.getX(), e.getY(), 0));
+                    active.touchMove(new Vector3(e.getX(), e.getY(), 0));
                     break;
 
                 case MotionEvent.ACTION_DOWN:
                     //active.TouchedScreen(e.getX(),e.getY());
-                    //active.IntersectObject(new Vector3f(e.getX(),e.getY(),0));
-                    active.touchDown(new Vector3f(e.getX(), e.getY(), 0));
+                    //active.IntersectObject(new Vector3(e.getX(),e.getY(),0));
+                    active.touchDown(new Vector3(e.getX(), e.getY(), 0));
                     break;
 
                 case MotionEvent.ACTION_UP:
-                    active.touchUp(new Vector3f(e.getX(), e.getY(), 0));
+                    active.touchUp(new Vector3(e.getX(), e.getY(), 0));
                     break;
             }
         }

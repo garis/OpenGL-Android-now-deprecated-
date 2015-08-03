@@ -44,7 +44,7 @@ public class FontCharacter {
         return normHeight;
     }
 
-    public boolean decodeFromString(String str, Vector3f textureDimension) {
+    public boolean decodeFromString(String str, Vector3 textureDimension) {
         if (str.compareTo("") != 0) {
             String[] line = str.split(" ");
 
@@ -68,22 +68,21 @@ public class FontCharacter {
 
         if (ID != -1) {
             normalize(textureDimension);
-
             return true;
         }
 
         return false;
     }
 
-    private void normalize(Vector3f textureDimension) {
-        y = (y / textureDimension.y());
-        x = x / textureDimension.x();
-        width = width / textureDimension.x();
-        height = height / textureDimension.y();
+    private void normalize(Vector3 textureDimension) {
+        y = (float) (y / textureDimension.y());
+        x = (float) (x / textureDimension.x());
+        width = (float) (width / textureDimension.x());
+        height = (float) (height / textureDimension.y());
     }
 
-    public void normalizeDimension(Vector3f value) {
-        normWidth = width / value.x();
-        normHeight = height / value.y();
+    public void normalizeDimension(Vector3 value) {
+        normWidth = (float) (width / value.x());
+        normHeight = (float) (height / value.y());
     }
 }
