@@ -220,33 +220,16 @@ public class LatticeBoltzmann {
         doStep();
     }
 
-    // Execute a single step of the algorithm:
-    // Times are on 3.06 GHz iMac, Java 6. On 2.4GHz MacBook Pro, all times are about 30% longer.
     private synchronized void doStep() {
-
-        //if (debug) Log.d("DEBUG", "START_STEP");
-        //long startTime = System.currentTimeMillis();
-        //force();
-        //long forceTime = System.currentTimeMillis();
-
         collide();
 
-        //long afterCollideTime = System.currentTimeMillis();
-        //collideTime = (int) (afterCollideTime - forceTime);        // 23-24 ms for 600x600 grid
-
         stream();
-
-        //streamTime = (int) (System.currentTimeMillis() - afterCollideTime);    // 9-10 ms for 600x600 grid
 
         bounce();
 
         if (isTracerEnable) moveTracers();
 
-        //stepTime = (int) (System.currentTimeMillis() - startTime);    // 33-35 ms for 600x600 grid
-
         time++;
-
-        //dataCanvas.repaint();
     }
 
     // Collide particles within each cell.  Adapted from Wagner's D2Q9 code.
@@ -285,21 +268,15 @@ public class LatticeBoltzmann {
                     nNW[x][y] += omega * (one36thn * (1 - vx3 + vy3 + 4.5 * (v2 - vxvy2) - v215) - nNW[x][y]);
                     nSE[x][y] += omega * (one36thn * (1 + vx3 - vy3 + 4.5 * (v2 - vxvy2) - v215) - nSE[x][y]);
                     nSW[x][y] += omega * (one36thn * (1 - vx3 - vy3 + 4.5 * (v2 + vxvy2) - v215) - nSW[x][y]);
+
+                    xvel[x][y] = vx;
+                    yvel[x][y] = vy;
+
                     switch (drawType) {
                         case 0:
                             speed2[x][y] = v2;
                             break;
-                        case 1:
-                            xvel[x][y] = vx;
-                            break;
-                        case 2:
-                            yvel[x][y] = vy;
-                            break;
                         case 3:
-                            xvel[x][y] = vx;
-                            yvel[x][y] = vy;
-                            density[x][y] = n;
-                            break;
                         case 4:
                             density[x][y] = n;
                             break;
@@ -464,8 +441,6 @@ public class LatticeBoltzmann {
 
             setColorVector((int) tracerx[t], (int) tracery[t], white);
         }
-
-        // Compute the curl of the velocity field, paying special attention to edges:
     }
 
     private void setColorVector(int x, int y, Vector3 value) {

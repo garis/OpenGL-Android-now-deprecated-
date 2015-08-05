@@ -149,8 +149,6 @@ public class EngineComponentSimColorPanel implements EngineComponent.EngineCompo
 
 
     public void draw(float[] mViewMatrix, float[] mProjectionMatrix, float time) {
-
-        // Add program to OpenGL environment
         GLES20.glUseProgram(programHandle);
 
         GLES20.glVertexAttribPointer(mPositionHandle, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
@@ -160,7 +158,6 @@ public class EngineComponentSimColorPanel implements EngineComponent.EngineCompo
         GLES20.glEnableVertexAttribArray(mColorHandle);
 
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawListBufferCapacity, GLES20.GL_UNSIGNED_SHORT, drawListBuffer);//Draw
-        //GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);
     }
 
 

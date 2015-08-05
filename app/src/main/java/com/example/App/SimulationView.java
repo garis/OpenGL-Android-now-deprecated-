@@ -19,7 +19,7 @@ public class SimulationView extends EngineGLRenderer {
     boolean isStopped = false;
     boolean isTracersEnable = false;
     LatticeBoltzmann fluidSim;
-    int value = 180;
+    int value = 220;
     Vector3 dimension = new Vector3(value, value / 16 * 9, 0);
     EngineComponentText text;
     EngineComponentText textTot;

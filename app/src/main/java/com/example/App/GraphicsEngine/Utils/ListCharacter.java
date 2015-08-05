@@ -12,29 +12,13 @@ import java.util.List;
 
 public class ListCharacter {
 
-    public static List<FontCharacter> chracterList;
-    private FontCharacter[] vectorChracterList;
+    private FontCharacter[] vectorChracter;
 
     public void ListCharacter() {
-        chracterList = new ArrayList<FontCharacter>();
     }
 
     public FontCharacter GetFontCharacter(char Char) {
-        return SearchCharacter((int) Char, 0, vectorChracterList.length - 1);
-    }
-
-    private FontCharacter SearchCharacter(int n, int min, int max) {
-        while (max >= min) {
-            int mid = min + (max - min / 2);
-            if (vectorChracterList[mid].getID() == n)
-                return vectorChracterList[mid];
-            else if (vectorChracterList[mid].getID() < n) {
-                min = min + 1;
-            } else if (vectorChracterList[mid].getID() > n) {
-                max = max - 1;
-            }
-        }
-        return new FontCharacter();
+        return vectorChracter[(int) Character.valueOf(Char)];
     }
 
     public void LoadFNT_File(Context context, String name) {
@@ -42,6 +26,7 @@ public class ListCharacter {
         String sCurrentLine = "";
         List<String> file = new ArrayList<String>();
 
+        //load the file
         try {
             InputStream is = context.getAssets().open("font/" + name + ".fnt");
             InputStreamReader inputStreamReader = new InputStreamReader(is);
@@ -63,8 +48,8 @@ public class ListCharacter {
             }
         }
 
-
-        chracterList = new ArrayList<FontCharacter>();
+        //load font information
+        List<FontCharacter> chracterList = new ArrayList<FontCharacter>();
         Iterator<String> iterator = file.iterator();
         iterator.next();
         String[] line = iterator.next().split(" ");
@@ -80,8 +65,11 @@ public class ListCharacter {
                 }
             }
         }
+
+        //search for the max height, width and ascii values
         float maxHeight = 0;
         float maxWidth = 0;
+        int maxASCIIValue = 0;
         while (iterator.hasNext()) {
             FontCharacter character = new FontCharacter();
             if (character.decodeFromString(iterator.next(), textureDim)) {
@@ -90,16 +78,23 @@ public class ListCharacter {
                     maxHeight = character.getHeight();
                 if (character.getWidth() > maxWidth)
                     maxWidth = character.getWidth();
-
+                if ((int) character.getID() > maxASCIIValue)
+                    maxASCIIValue = (int) character.getID();
             }
         }
 
+        //normalize dimensions
         Iterator<FontCharacter> normIterator = chracterList.iterator();
         while (normIterator.hasNext()) {
             normIterator.next().normalizeDimension(new Vector3(maxWidth, maxHeight, 0));
         }
 
-        vectorChracterList = new FontCharacter[chracterList.size()];
-        chracterList.toArray(vectorChracterList);
+        //fill the array with only the stuff we have, it's better later when we search in it
+        vectorChracter = new FontCharacter[maxASCIIValue + 1];
+        Iterator<FontCharacter> iteratorChar = chracterList.listIterator();
+        while (iteratorChar.hasNext()) {
+            FontCharacter c = iteratorChar.next();
+            vectorChracter[c.getID()] = c;
+        }
     }
 }
