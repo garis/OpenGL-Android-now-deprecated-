@@ -1,5 +1,6 @@
 # OpenGL-Android
-<b>see the other project for more serious code</b>\n
+<b>see the other project for more serious code</b>
+
 Some test on the openGL on android
 
 This project is an experiment to understand to use openGL on android.
