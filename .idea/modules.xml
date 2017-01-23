@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GraphicsEngine.iml" filepath="$PROJECT_DIR$/GraphicsEngine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OpenGL-Android-now-deprecated-.iml" filepath="$PROJECT_DIR$/OpenGL-Android-now-deprecated-.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

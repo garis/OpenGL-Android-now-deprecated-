@@ -19,7 +19,7 @@ public class SimulationView extends EngineGLRenderer {
     boolean isStopped = false;
     boolean isTracersEnable = false;
     LatticeBoltzmann fluidSim;
-    int value = 220;
+    int value = 190;
     Vector3 dimension = new Vector3(value, value / 16 * 9, 0);
     EngineComponentText text;
     EngineComponentText textTot;
@@ -66,7 +66,7 @@ public class SimulationView extends EngineGLRenderer {
     }
 
     public void loadItems() {
-        this.setWaitTime(20);
+        this.setWaitTime(1);
 
         fluidSim = new LatticeBoltzmann((int) dimension.x(), (int) dimension.y(), 0.08f, 1024, 255);
         fluidSim.setViscosity(0.01f);

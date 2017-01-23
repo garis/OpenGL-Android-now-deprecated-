@@ -53,8 +53,7 @@
         <item name="listPreferredItemHeightSmall">?android:attr/listPreferredItemHeightSmall</item>
         <item name="listPreferredItemHeightLarge">?android:attr/listPreferredItemHeightLarge</item>
         <item name="listPreferredItemPaddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
-        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight
-        </item>
+        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight</item>
 
         <!-- Attributes populated from the framework to be read by apps -->
         <item name="buttonBarStyle">?android:attr/buttonBarStyle</item>
@@ -81,8 +80,7 @@
         <item name="listPreferredItemHeightSmall">?android:attr/listPreferredItemHeightSmall</item>
         <item name="listPreferredItemHeightLarge">?android:attr/listPreferredItemHeightLarge</item>
         <item name="listPreferredItemPaddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
-        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight
-        </item>
+        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight</item>
 
         <!-- Attributes populated from the framework to be read by apps -->
         <item name="buttonBarStyle">?android:attr/buttonBarStyle</item>
@@ -107,8 +105,7 @@
         <item name="listPreferredItemHeightSmall">?android:attr/listPreferredItemHeightSmall</item>
         <item name="listPreferredItemHeightLarge">?android:attr/listPreferredItemHeightLarge</item>
         <item name="listPreferredItemPaddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
-        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight
-        </item>
+        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight</item>
 
         <!-- Attributes populated from the framework to be read by apps -->
         <item name="buttonBarStyle">?android:attr/buttonBarStyle</item>
@@ -133,8 +130,7 @@
         <item name="listPreferredItemHeightSmall">?android:attr/listPreferredItemHeightSmall</item>
         <item name="listPreferredItemHeightLarge">?android:attr/listPreferredItemHeightLarge</item>
         <item name="listPreferredItemPaddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
-        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight
-        </item>
+        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight</item>
 
         <!-- Attributes populated from the framework to be read by apps -->
         <item name="buttonBarStyle">?android:attr/buttonBarStyle</item>
@@ -161,8 +157,7 @@
         <item name="listPreferredItemHeightSmall">?android:attr/listPreferredItemHeightSmall</item>
         <item name="listPreferredItemHeightLarge">?android:attr/listPreferredItemHeightLarge</item>
         <item name="listPreferredItemPaddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
-        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight
-        </item>
+        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight</item>
 
         <!-- Attributes populated from the framework to be read by apps -->
         <item name="buttonBarStyle">?android:attr/buttonBarStyle</item>
